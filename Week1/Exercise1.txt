@@ -1,0 +1,121 @@
+EXERCISES 1.1
+
+Green
+
+1.  The main method creates a LongCounter object. The nit creates and starts two threads that run 
+    concurrently, and each increments the count field 10 million times by calling method increment.
+
+    What kind of final values do you get when the increment method is not synchronized?
+
+
+2.  Reduce the counts value from 10 million to 100, recompile, and rerun the code. 
+    It is now likely that you get the correct result (200) in every run. Explain how this could be. 
+    Would you consider this software correct, in the sense that you would guarantee that it always 
+    gives 200?
+
+
+3. The increment method in LongCounter uses the assignment count = count + 1;
+    to add one to count. This could be expressed also as count += 1 or as count ++.
+
+    Do you think it would make any difference to use one of these forms instead? Why? 
+    Change the code and run it. Do you see any difference in the results for any of these alternatives?
+
+Yellow
+
+4.  Decompile the methods increment from above to see the byte code in the three versions 
+    (as is, +=, ++). The basic decompiler is javap. Does that verify or refuse the explanation you made earlier?
+
+5.  Extend the LongCounter class with a decrement() method which subtracts 1 from the count field.
+    Change the code in main so that t1 calls decrement 10 million times, and t2 calls increment 
+    10 million times, on a LongCounter instance. In particular, initialize main’s counts variable 
+    to 10 million as before.
+
+    What should the final value be, after both threads have completed?
+    Note that decrement is called only from one thread, and increment is called only from another thread. 
+
+    So do the methods have to be synchronized for the example to produce the expected final value? 
+    Explain why (or why not).
+
+Exercise 1.2 
+
+Yellow
+The example code "TestCountPrimes" show how one can speed up a program by using more parallel threads 
+- up to a certain level which is hardware dependent. Try with different values of the parameter 
+threadCount to show how many hardware threads your implementation of Java can support.
+
+
+Exercise 1.3 
+
+Consider this class, whose print method prints a dash “-”, waits for 50 milliseconds, and then prints a vertical bar “|”:
+   class Printer {
+     public void print() {
+System.out.print("-");
+try { Thread.sleep(50); } catch (InterruptedException exn) { } System.out.print("|");
+} }
+
+Green
+1.  Write a program that creates a Printer object p, and then creates and starts two threads. Each thread must call p.print() forever. You will observe that most of the time the dash and bar symbols alternate neatly as in -|-|-|-|-|-|-|.
+    But occasionally two bars are printed in a row, or two dashes are printed in a row, creating small “weaving faults” like those shown below:
+
+    |-|-|-||--|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|- 
+    |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|- 
+    |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|- 
+    |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|- 
+    |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-||-- 
+    |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|- 
+    |-|-|-|-|-|-|-|-|-||--|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|- 
+    |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|- 
+    |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
+
+
+2.  Describe a scenario involving the two threads where this happens.
+
+
+3.  Making method print synchronized should prevent this from happening. 
+    Compile and run the improved program to see whether it works. Explain why.
+
+4. Rewrite print to use a synchronized statement in its body instead of the method being synchronized.
+
+
+Yellow
+5.  Make the print method static, and change the synchronized statement inside it to lock on the 
+    Print class’s reflective Class object instead.
+
+    For beauty, you should also change the threads to call static method Print.print() instead of 
+    instance method p.print().
+
+
+Exercise 1.4 
+
+In Goetz chapter 1.1, three motivations for concurrency is given: resource utilization, fairness and convenience. One of the inventers of object oriented programming, Kristen Nygaard, once gave an alternative characterization of the different ways to use concurrency:
+• Exploitationofmultiprocessors.Thegoalhereistoexploitthatthecomputerhasmultiplecores(orwehave access to a number of physical computers). A good exploitation scheme makes it easy to write programs to make efficient use of true parallelism.
+• Concealed parallelism. The goal here is to make it possible for several programs to share some resources in a manner where each can act if they had sole ownership.
+• Intrinsic parallelism. The real world is intrinsically parallel. Computers who interact with the real world need to deal with this. The goal here is to make it easy to write programs which responds (in time) to input sensors or other connected devices.
+
+Green
+Compare the categories of Kristen and Goetz, try to find three examples (if possible - if not possible, argue why) 
+of systems which are included in the categories of Goetz, but not in those of Kristen, and vice versa.
+
+
+Yellow
+Find examples of 3 systems in each of Kristens categories which you have used yourself 
+(as a programmer or user).
+
+
+Exercise1.5 
+
+Yellow
+Consider the small artificial program in file TestLocking0.java. In class Mystery, the single mutable 
+field sum is private, and all methods are synchronized, so superficially the class seems to be thread-safe.
+
+1.  Compile the program and run it several times. Show the results you get. Do they indicate that class 
+    Mystery is thread-safe or not?
+
+2.  Explain why class Mystery is not thread-safe. Hint: Consider (a) what it means for an instance 
+    method to be synchronized, and (b) what it means for a static method to be synchronized.
+
+3.  Explain how you could make the class thread-safe, without changing its sequential behavior. 
+    That is, you should not make any static field into an instance field (or vice versa), and you 
+    should not make any static method into an instance method (or vice versa). Make the class 
+    thread-safe, and rerun the program to see whether it works.
+
