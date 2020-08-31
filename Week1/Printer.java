@@ -1,10 +1,11 @@
 public class Printer {
         public void print() {
+            synchronized(this) {
            System.out.print("-");
            try { Thread.sleep(50); 
            } catch (InterruptedException exn) {      
            }
-            System.out.print("|");
+            System.out.print("|");}
    } 
 
    public static void main(String[] args) {
