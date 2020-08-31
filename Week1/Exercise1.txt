@@ -17,7 +17,6 @@ ANSWER: Every time when we run the code we get different results.
         values: 10 028 585 / 19 793 298 / 19 507 082
 
 
-
 🟢 Green ---------------------------------------------------------------------------------------------------
 
     2.  Reduce the counts value from 10 million to 100, recompile, and rerun the code. 
@@ -28,8 +27,7 @@ ANSWER: Every time when we run the code we get different results.
 
 ANSWER: The counter gives different results because the increment method is not atomic and it creates
         race condition issues.
-        ---------------------
-        ---------------------
+        ??????????????????????
         
 
 🟢 Green ---------------------------------------------------------------------------------------------------
@@ -43,8 +41,6 @@ ANSWER: The counter gives different results because the increment method is not 
 
 ANSWER: We don't see any changes when running the code. We still get wrong values, the increment method
         is still not atomic. 
-
-
 
 
 🟡 Yellow --------------------------------------------------------------------------------------------------
@@ -68,7 +64,6 @@ ANSWER:
 
     So do the methods have to be synchronized for the example to produce the expected final value? 
     Explain why (or why not).
- 
     ---------------------------------------------------------------------------------------------------------
 
 ANSWER:
@@ -122,7 +117,7 @@ ANSWER:
 
     --------------------------------------------------------------------------------------------------------
 
-ANSWER: 
+ANSWER: See Printer.java
 
 
 🟢 Green ---------------------------------------------------------------------------------------------------
@@ -131,7 +126,7 @@ ANSWER:
     ---------------------------------------------------------------------------------------------------------
 
 ANSWER: It happens when the print mehtod is not synchronized.
-??????????
+        ??????????
 
 
 🟢 Green ----------------------------------------------------------------------------------------------------
