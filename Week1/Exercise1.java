@@ -1,4 +1,3 @@
-package Week1;
 
 /**
  * Exercise1
