@@ -58,8 +58,11 @@ Exercise 1.3
 Consider this class, whose print method prints a dash “-”, waits for 50 milliseconds, and then prints a vertical bar “|”:
    class Printer {
      public void print() {
-System.out.print("-");
-try { Thread.sleep(50); } catch (InterruptedException exn) { } System.out.print("|");
+        System.out.print("-");
+        try { Thread.sleep(50); 
+        } catch (InterruptedException exn) { 
+            
+        } System.out.print("|");
 } }
 
 Green
@@ -79,9 +82,13 @@ Green
 
 2.  Describe a scenario involving the two threads where this happens.
 
+Answer: It happens when the print mehtod is not synchronized.
+----------------------------------------------------------------------
 
 3.  Making method print synchronized should prevent this from happening. 
     Compile and run the improved program to see whether it works. Explain why.
+
+Answer: It works, because the threads are not accessing the method simultaniously
 
 4. Rewrite print to use a synchronized statement in its body instead of the method being synchronized.
 
