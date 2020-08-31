@@ -92,6 +92,7 @@ Answer: It works, because the threads are not accessing the method simultaniousl
 
 4. Rewrite print to use a synchronized statement in its body instead of the method being synchronized.
 
+Done, see Printer.java
 
 Yellow
 5.  Make the print method static, and change the synchronized statement inside it to lock on the 
@@ -103,10 +104,14 @@ Yellow
 
 Exercise 1.4 
 
-In Goetz chapter 1.1, three motivations for concurrency is given: resource utilization, fairness and convenience. One of the inventers of object oriented programming, Kristen Nygaard, once gave an alternative characterization of the different ways to use concurrency:
-• Exploitationofmultiprocessors.Thegoalhereistoexploitthatthecomputerhasmultiplecores(orwehave access to a number of physical computers). A good exploitation scheme makes it easy to write programs to make efficient use of true parallelism.
-• Concealed parallelism. The goal here is to make it possible for several programs to share some resources in a manner where each can act if they had sole ownership.
-• Intrinsic parallelism. The real world is intrinsically parallel. Computers who interact with the real world need to deal with this. The goal here is to make it easy to write programs which responds (in time) to input sensors or other connected devices.
+In Goetz chapter 1.1, three motivations for concurrency is given: resource utilization, fairness and convenience. One of the inventers of object oriented 
+programming, Kristen Nygaard, once gave an alternative characterization of the different ways to use concurrency:
+• Exploitation of multiprocessors. The goal here is to exploit that the computer has multiplecores(or we have access to a number of physical computers). A good exploitation 
+scheme makes it easy to write programs to make efficient use of true parallelism.
+• Concealed parallelism. The goal here is to make it possible for several programs to share some resources in a manner where each can act if they had sole 
+ownership.
+• Intrinsic parallelism. The real world is intrinsically parallel. Computers who interact with the real world need to deal with this. The goal here is to make 
+it easy to write programs which responds (in time) to input sensors or other connected devices.
 
 Green
 Compare the categories of Kristen and Goetz, try to find three examples (if possible - if not possible, argue why) 

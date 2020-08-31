@@ -1,4 +1,5 @@
 public class Printer {
+
         public void print() {
             synchronized(this) {
            System.out.print("-");
