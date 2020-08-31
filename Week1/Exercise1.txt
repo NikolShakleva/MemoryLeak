@@ -7,12 +7,19 @@ Green
 
     What kind of final values do you get when the increment method is not synchronized?
 
+Answer: Every time when we run the code we get different results. 
+        values: 10 028 585 / 19 793 298 / 19 507 082
+
 
 2.  Reduce the counts value from 10 million to 100, recompile, and rerun the code. 
     It is now likely that you get the correct result (200) in every run. Explain how this could be. 
     Would you consider this software correct, in the sense that you would guarantee that it always 
     gives 200?
 
+Answer: The counter gives different results because the increment method is not atomic and it creates
+        race condition issues.
+        ---------------------
+        ---------------------
 
 3. The increment method in LongCounter uses the assignment count = count + 1;
     to add one to count. This could be expressed also as count += 1 or as count ++.
@@ -20,6 +27,8 @@ Green
     Do you think it would make any difference to use one of these forms instead? Why? 
     Change the code and run it. Do you see any difference in the results for any of these alternatives?
 
+Answer: We don't see any changes when running the code. We still get wrong values, the increment method
+        is still not atomic. 
 Yellow
 
 4.  Decompile the methods increment from above to see the byte code in the three versions 
