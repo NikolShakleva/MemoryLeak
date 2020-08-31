@@ -2,10 +2,10 @@
 MemoryLeak
 Week1
 
------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
 EXERCISES 1.1
------------------------------------------------------------------------------------------------------------
-🟢 Green   -------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+🟢 Green ---------------------------------------------------------------------------------------------------
 
     1.  The main method creates a LongCounter object. The nit creates and starts two threads that run 
     concurrently, and each increments the count field 10 million times by calling method increment.
@@ -18,7 +18,7 @@ ANSWER: Every time when we run the code we get different results.
 
 
 
-🟢 Green   -------------------------------------------------------------------------------------------------
+🟢 Green ---------------------------------------------------------------------------------------------------
 
     2.  Reduce the counts value from 10 million to 100, recompile, and rerun the code. 
     It is now likely that you get the correct result (200) in every run. Explain how this could be. 
@@ -32,14 +32,14 @@ ANSWER: The counter gives different results because the increment method is not 
         ---------------------
         
 
-🟢 Green   -------------------------------------------------------------------------------------------------
+🟢 Green ---------------------------------------------------------------------------------------------------
 
     3. The increment method in LongCounter uses the assignment count = count + 1;
     to add one to count. This could be expressed also as count += 1 or as count ++.
 
     Do you think it would make any difference to use one of these forms instead? Why? 
     Change the code and run it. Do you see any difference in the results for any of these alternatives?
-    -----------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------------
 
 ANSWER: We don't see any changes when running the code. We still get wrong values, the increment method
         is still not atomic. 
@@ -47,16 +47,16 @@ ANSWER: We don't see any changes when running the code. We still get wrong value
 
 
 
-🟡 Yellow   ------------------------------------------------------------------------------------------------
+🟡 Yellow --------------------------------------------------------------------------------------------------
 
     4.  Decompile the methods increment from above to see the byte code in the three versions 
     (as is, +=, ++). The basic decompiler is javap. Does that verify or refuse the explanation you made earlier?
-    -----------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------------
 
 ANSWER: 
 
 
-🟡 Yellow   ------------------------------------------------------------------------------------------------
+🟡 Yellow --------------------------------------------------------------------------------------------------
 
     5.  Extend the LongCounter class with a decrement() method which subtracts 1 from the count field.
     Change the code in main so that t1 calls decrement 10 million times, and t2 calls increment 
@@ -69,25 +69,25 @@ ANSWER:
     So do the methods have to be synchronized for the example to produce the expected final value? 
     Explain why (or why not).
  
-    -----------------------------------------------------------------------------------------------------------
-
-ANSWER:
-
-
------------------------------------------------------------------------------------------------------------
-EXERCISE 1.2 
------------------------------------------------------------------------------------------------------------
-🟡 Yellow   ------------------------------------------------------------------------------------------------
-
-    The example code "TestCountPrimes" show how one can speed up a program by using more parallel threads 
-    - up to a certain level which is hardware dependent. Try with different values of the parameter 
-    threadCount to show how many hardware threads your implementation of Java can support.
     ---------------------------------------------------------------------------------------------------------
 
 ANSWER:
 
 
------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+EXERCISE 1.2 
+------------------------------------------------------------------------------------------------------------
+🟡 Yellow --------------------------------------------------------------------------------------------------
+
+    The example code "TestCountPrimes" show how one can speed up a program by using more parallel threads 
+    - up to a certain level which is hardware dependent. Try with different values of the parameter 
+    threadCount to show how many hardware threads your implementation of Java can support.
+    --------------------------------------------------------------------------------------------------------
+
+ANSWER:
+
+
+------------------------------------------------------------------------------------------------------------
   EXERCISE 1.3 
 
   Consider this class, whose print method prints a dash “-”, waits for 50 milliseconds, and then prints 
@@ -101,8 +101,8 @@ ANSWER:
             
               } System.out.print("|");
       } }
------------------------------------------------------------------------------------------------------------
-🟢 Green   -------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+🟢 Green ---------------------------------------------------------------------------------------------------
 
   1.  Write a program that creates a Printer object p, and then creates and starts two threads. 
       Each thread must call p.print() forever. You will observe that most of the time the dash and bar 
@@ -120,12 +120,12 @@ ANSWER:
     |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|- 
     |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 
-    -------------------------------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------------------------------
 
 ANSWER: 
 
 
-🟢 Green   -------------------------------------------------------------------------------------------------
+🟢 Green ---------------------------------------------------------------------------------------------------
 
     2.  Describe a scenario involving the two threads where this happens.
     ---------------------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ ANSWER: It happens when the print mehtod is not synchronized.
 ??????????
 
 
-🟢 Green   -------------------------------------------------------------------------------------------------
+🟢 Green ----------------------------------------------------------------------------------------------------
 
     3.  Making method print synchronized should prevent this from happening. 
     Compile and run the improved program to see whether it works. Explain why.
@@ -143,7 +143,7 @@ ANSWER: It happens when the print mehtod is not synchronized.
 ANSWER: It works, because the threads are not accessing the method simultaniously
 
 
-🟢 Green   -------------------------------------------------------------------------------------------------
+🟢 Green ----------------------------------------------------------------------------------------------------
 
     4. Rewrite print to use a synchronized statement in its body instead of the method being synchronized.
     ---------------------------------------------------------------------------------------------------------
@@ -151,18 +151,18 @@ ANSWER: It works, because the threads are not accessing the method simultaniousl
 ANSWER: Done, see Printer.java
 
 
-🟡 Yellow   ------------------------------------------------------------------------------------------------
+🟡 Yellow --------------------------------------------------------------------------------------------------
 
     5.  Make the print method static, and change the synchronized statement inside it to lock on the 
     Print class’s reflective Class object instead.
 
     For beauty, you should also change the threads to call static method Print.print() instead of 
     instance method p.print().
-    -----------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------------
 
 ANSWER: 
 
------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
 EXERCISE 1.4 
 
 In Goetz chapter 1.1, three motivations for concurrency is given: resource utilization, fairness and 
@@ -179,8 +179,8 @@ alternative characterization of the different ways to use concurrency:
 • Intrinsic parallelism. The real world is intrinsically parallel. Computers who interact with the 
   real world need to deal with this. The goal here is to make it easy to write programs which 
   responds (in time) to input sensors or other connected devices.
------------------------------------------------------------------------------------------------------------
-🟢 Green   -------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+🟢 Green ---------------------------------------------------------------------------------------------------
 
     Compare the categories of Kristen and Goetz, try to find three examples (if possible - if not possible, 
     argue why) of systems which are included in the categories of Goetz, but not in those of Kristen, and 
@@ -190,19 +190,19 @@ alternative characterization of the different ways to use concurrency:
 ANSWER:
 
 
-🟡 Yellow   ------------------------------------------------------------------------------------------------
+🟡 Yellow --------------------------------------------------------------------------------------------------
 
     Find examples of 3 systems in each of Kristens categories which you have used yourself 
     (as a programmer or user).
-    -----------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------------
 
 ANSWER:
 
 
------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
 EXERCISE 1.5 
------------------------------------------------------------------------------------------------------------
-🟡 Yellow   ------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+🟡 Yellow --------------------------------------------------------------------------------------------------
 
     Consider the small artificial program in file TestLocking0.java. In class Mystery, the single mutable 
     field sum is private, and all methods are synchronized, so superficially the class seems to be thread-safe.
