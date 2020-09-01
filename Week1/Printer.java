@@ -1,3 +1,4 @@
+package Week1;
 
 public class Printer {
 
@@ -11,18 +12,30 @@ public class Printer {
         }
    } 
 
+   public static void printStatic() {
+       synchronized(Printer.class) {
+        System.out.print("-");
+        try { 
+            Thread.sleep(50); 
+        } catch (InterruptedException exn) {}
+        System.out.print("|"); 
+       }
+   }
+
     public static void main(String[] args) {
         var p = new Printer();
         int i = 5;
 
         Thread t1 = new Thread(() -> {
             while(i < 10)
-                p.print();
+                //p.print();
+                Printer.printStatic();
         });
 
         Thread t2 = new Thread(() -> {
             while(i < 10) 
-                p.print();
+                //p.print();
+                Printer.printStatic();
         });
             
         t1.start(); t2.start();
