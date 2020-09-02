@@ -249,6 +249,14 @@ Convenience. It is often easier or more desirable to write several programs that
 have them coordinate with each other as necessary than to write a single program that performs all the tasks.
 
 ANSWER:
+Exploitation of multiprocessors and resource utilization are two very similar concepts. The purpose of both of them is to
+make the best use of the resources, so the computer is not 'idle'.
+
+Concealed parallelism and fairness are very similar because they both deal with shared ownership over the computer's 
+resources.
+
+Example for intrinsic parallelism: rejsekort system, online check-in systems
+
 
 
 🟡 Yellow --------------------------------------------------------------------------------------------------
@@ -258,7 +266,9 @@ ANSWER:
     ---------------------------------------------------------------------------------------------------------
 
 ANSWER:
-
+1.Streaming services, World Of Warcraft
+2.GitHub, Google Drive
+3.Rejsekort, online booking system, zoom
 
 ------------------------------------------------------------------------------------------------------------
 EXERCISE 1.5 
