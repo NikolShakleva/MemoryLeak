@@ -4,7 +4,7 @@
 public class Longcounter {
     private long count = 0; 
     
-    public void increment() {
+    public synchronized void increment() {
         //count = count + 1;
         //count++;
         count +=1;

@@ -9,16 +9,16 @@ public class TestLocking0 {
 
           Thread t1 = new Thread(() -> { 
           for (int i=0; i<count; i++)
-            m.addInstance(1); 
-            //Mystery.addStatic(1);
+           // m.addInstance(1); 
+            Mystery.addStatic(1);
             });
 
 
           Thread t2 = new Thread(() -> { 
           for (int i=0; i<count; i++)
-            m.addStatic(1); 
+           // m.addStatic(1); 
             //m.addInstance(1);
-            //Mystery.addStatic(1);
+            Mystery.addStatic(1);
             });
 
 

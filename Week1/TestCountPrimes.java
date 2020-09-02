@@ -5,17 +5,24 @@
 
 public class TestCountPrimes {
   public static void main(String[] args) {
-    final int range = 10_000_000;
+    final int range = 30_000_000;
 		long start = System.nanoTime();
     /*System.out.printf("Sequential result: %10d in: %10d%n", countSequential(range), (System.nanoTime()-start)/1_000_000);
 		start = System.nanoTime();
     System.out.printf("Parallel2  result: %10d in: %10d%n", countParallel2(range/2), (System.nanoTime()-start)/1_000_000);*/
-		start = System.nanoTime();
+    start = System.nanoTime();
+    System.out.printf("Parallel1500 result: %10d in: %10d%n", countParallelN(range, 1500), (System.nanoTime()-start)/1_000_000);
+    start = System.nanoTime();
     System.out.printf("Parallel20 result: %10d in: %10d%n", countParallelN(range, 20), (System.nanoTime()-start)/1_000_000);
 		start = System.nanoTime();
     System.out.printf("Parallel12 result: %10d in: %10d%n", countParallelN(range, 12), (System.nanoTime()-start)/1_000_000);
 		start = System.nanoTime();
+    System.out.printf("Parallel10 result: %10d in: %10d%n", countParallelN(range, 10), (System.nanoTime()-start)/1_000_000);
+    start = System.nanoTime();
+		//System.out.printf("Parallel8  result: %10d in: %10d%n", countParallelN(range, 8)  , (System.nanoTime()-start)/1_000_000);
+    //start = System.nanoTime();
 		System.out.printf("Parallel6  result: %10d in: %10d%n", countParallelN(range, 6), (System.nanoTime()-start)/1_000_000);
+	
 	}
 
   private static boolean isPrime(int n) {
@@ -56,7 +63,7 @@ public class TestCountPrimes {
   }
 
   // General parallel solution, using multiple threads
-  private static long countParallelN(int range, int threadCount) {
+  private static  long countParallelN(int range, int threadCount) {
     final int perThread = range / threadCount;
     final Longcounter lc = new Longcounter();
     Thread[] threads = new Thread[threadCount];
@@ -77,6 +84,7 @@ public class TestCountPrimes {
     } catch (InterruptedException exn) { }
     return lc.get();
   }
+
 }
 
 
