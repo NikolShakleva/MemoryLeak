@@ -1,4 +1,3 @@
-package Week1;
 // sestoft@itu.dk * 2015-10-29
 
 public class TestLocking0 {
