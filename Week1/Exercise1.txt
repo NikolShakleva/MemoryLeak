@@ -26,7 +26,11 @@ ANSWER: Every time when we run the code we get different results.
     ---------------------------------------------------------------------------------------------------------
 
 ANSWER: The counter gives different results because the increment method is not atomic and it creates
-        race condition issues.
+        race condition issues. When the two threads runs simultaneouly without synchronization one
+        thread is put back to runnable before being able to write the value that was just updated.
+        The software might not show the mistake imediatelly when ran but i will definitely crash over time.
+        Therefore, the software is not considered correct because there is no 
+        guarantee that it will always return the right result. 
         ??????????????????????
         
 
@@ -40,7 +44,7 @@ ANSWER: The counter gives different results because the increment method is not 
     ---------------------------------------------------------------------------------------------------------
 
 ANSWER: We don't see any changes when running the code. We still get wrong values, the increment method
-        is still not atomic. 
+        is still not atomic.
 
 
 🟡 Yellow --------------------------------------------------------------------------------------------------
@@ -51,7 +55,43 @@ ANSWER: We don't see any changes when running the code. We still get wrong value
 
 ANSWER: 
 
+ for count = count +1;
+ public void increment();
+    Code:
+       0: aload_0
+       1: aload_0
+       2: getfield      #2                  // Field count:J
+       5: lconst_1
+       6: ladd
+       7: putfield      #2                  // Field count:J
+      10: return
 
+for count++
+ public void increment();
+    Code:
+       0: aload_0
+       1: dup
+       2: getfield      #2                  // Field count:J
+       5: lconst_1
+       6: ladd
+       7: putfield      #2                  // Field count:J
+      10: return
+
+
+for count +=1
+public void increment();
+    Code:
+       0: aload_0
+       1: dup
+       2: getfield      #2                  // Field count:J
+       5: lconst_1
+       6: ladd
+       7: putfield      #2                  // Field count:J
+      10: return
+
+    After decomposing the increment method our assumption we get wrong results because the method is not automic 
+    verifies. There might be a difference in the way the values are put on the stack, but the
+    final result still gives wrong values. 
 🟡 Yellow --------------------------------------------------------------------------------------------------
 
     5.  Extend the LongCounter class with a decrement() method which subtracts 1 from the count field.
@@ -66,7 +106,17 @@ ANSWER:
     Explain why (or why not).
     ---------------------------------------------------------------------------------------------------------
 
-ANSWER:
+ANSWER: Look at the file called LongCounterDecrement.java
+        The final value of count after running the code should be 0
+        However, this result is not achieved because the methods are not synchronized and cannot run automically.
+        One thread might increment the count while the other one is still not finish writting the value form the decrement call
+
+        If the methods are synchronized then the methods are automic(executed as a single operation). Meaning
+        no interruption can happen while the value is read-modified-writen. The firts threads reads-modifies-writes the value,
+        when this is executed the second thread comes and reads-modifies-writes the value. In this case we always 
+        get the right final result for count
+    
+
 
 
 ------------------------------------------------------------------------------------------------------------
@@ -118,6 +168,7 @@ ANSWER:
     --------------------------------------------------------------------------------------------------------
 
 ANSWER: See Printer.java
+        
 
 
 🟢 Green ---------------------------------------------------------------------------------------------------
@@ -126,6 +177,8 @@ ANSWER: See Printer.java
     ---------------------------------------------------------------------------------------------------------
 
 ANSWER: It happens when the print mehtod is not synchronized.
+        When the two threads are running simultaneouly and the print method is not synchromized, 
+        then the print mehod cannot be excuted atomically and a race condition issue apppears. 
         ??????????
 
 
@@ -135,7 +188,11 @@ ANSWER: It happens when the print mehtod is not synchronized.
     Compile and run the improved program to see whether it works. Explain why.
     ---------------------------------------------------------------------------------------------------------
 
-ANSWER: It works, because the threads are not accessing the method simultaniously
+ANSWER: It works, because the threads are not accessing the method simultaniously. 
+        The first thread takes a lock goes into the method print the statements and then releases the lock.
+        then the second thread takes the lock, goes into the method prints the statements and releases the lock
+        This process repeats indefinite number of times
+
 
 
 🟢 Green ----------------------------------------------------------------------------------------------------
@@ -143,7 +200,7 @@ ANSWER: It works, because the threads are not accessing the method simultaniousl
     4. Rewrite print to use a synchronized statement in its body instead of the method being synchronized.
     ---------------------------------------------------------------------------------------------------------
 
-ANSWER: Done, see Printer.java
+ANSWER: Done, see Printer.java file
 
 
 🟡 Yellow --------------------------------------------------------------------------------------------------
@@ -155,7 +212,7 @@ ANSWER: Done, see Printer.java
     instance method p.print().
     ---------------------------------------------------------------------------------------------------------
 
-ANSWER: 
+ANSWER: Done see the printStatic method in the Printer.java file 
 
 -------------------------------------------------------------------------------------------------------------
 EXERCISE 1.4 
@@ -214,5 +271,27 @@ EXERCISE 1.5
     thread-safe, and rerun the program to see whether it works.
     --------------------------------------------------------------------------------------------------------
 
-ANSWER: 
+ANSWER:
 
+1.5.1
+        The result we are getting are different every time.
+        Examples: 1899545.000000 / 1840081.000000 / 1848148.000000
+        The class is not thread safe because it it uses a non static method to update a static 
+
+1.5.2   The class is not thread safe because the two threads are updateting the state of the count simultaneously 
+        One thread is locking the instance variable and another thread is locking the whole class.
+        Even thougth they are synchromized then don't lock on the same thing. Hence they cannot take turns updating the count value 
+
+1.5.3
+        case 1: both threads should call the static synchromized method: public static synchronized void addStatic (double x)
+                The static synchronized method will lock the class instead of the object.
+                This also means that only onr thread can access the method at a time.
+                The 1st thread will take the lock execute the method and relese the lock
+                The 2st thread will then take the lock execute the method and relese the lock
+                This rpocess will repeat itself multiple times
+        case 2: both threads will call the non-static on the instance: public synchronized void addInstance (double x) 
+                The instance synchromized methd will lock the instance, so only one thread at a time can modify the instance data
+                This means that nly one thread at a time will be able to access the method and modify the instance variable
+                The 1st thread will take the lock execute the method and relese the lock
+                The 2st thread will then take the lock execute the method and relese the lock
+                This rpocess will repeat itself multiple times

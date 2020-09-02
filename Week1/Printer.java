@@ -28,13 +28,13 @@ public class Printer {
 
         Thread t1 = new Thread(() -> {
             while(i < 10)
-                //p.print();
+                p.print();
                 Printer.printStatic();
         });
 
         Thread t2 = new Thread(() -> {
             while(i < 10) 
-                //p.print();
+                p.print();
                 Printer.printStatic();
         });
             
