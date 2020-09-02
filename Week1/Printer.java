@@ -22,16 +22,15 @@ public class Printer {
 
     public static void main(String[] args) {
         var p = new Printer();
-        int i = 5;
 
         Thread t1 = new Thread(() -> {
-            while(i < 10)
+            while(true)
                 //p.print();
                 Printer.printStatic();
         });
 
         Thread t2 = new Thread(() -> {
-            while(i < 10) 
+            while(true) 
                 //p.print();
                 Printer.printStatic();
         });
