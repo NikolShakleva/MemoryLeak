@@ -37,7 +37,7 @@ public class TestCountPrimes {
 
   // Basic parallel solution, using 2 threads
   private static long countParallel2(int perThread) {
-    final LongCounter lc = new LongCounter();
+    final Longcounter lc = new Longcounter();
     final int from1 = 0, to1 = perThread;
     Thread t1 = new Thread(() -> {
       for (int i=from1; i<to1; i++)
@@ -58,7 +58,7 @@ public class TestCountPrimes {
   // General parallel solution, using multiple threads
   private static long countParallelN(int range, int threadCount) {
     final int perThread = range / threadCount;
-    final LongCounter lc = new LongCounter();
+    final Longcounter lc = new Longcounter();
     Thread[] threads = new Thread[threadCount];
     for (int t=0; t<threadCount; t++) {
       final int from = perThread * t, 

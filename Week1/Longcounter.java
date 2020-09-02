@@ -1,7 +1,7 @@
 /**
  * InnerLongcounter
  */
-public class LongCounter {
+public class Longcounter {
     private long count = 0; 
     
     public void increment() {
@@ -14,7 +14,7 @@ public class LongCounter {
         } 
 
     public static void main(String[] args) {
-        final LongCounter lc = new LongCounter();
+        final Longcounter lc = new Longcounter();
         final int counts = 10_000_000;
         
         Thread t1 = new Thread(() -> {
