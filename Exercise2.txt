@@ -105,3 +105,7 @@ See the code in TestLocking2.java
 
 2. Explain how one can make the class thread-safe enough so that the allLists field is maintained correctly
 even if multiple concurrent threads create new DoubleArrayList instances at the same time.
+
+ANSWER: We changed the HashSet datastructure to a thread-safe one, CopyOnWriteArraySet to keep track of how many
+DoubleArrayList objects there are. 
+See TestLocking2.java

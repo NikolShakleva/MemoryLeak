@@ -2,6 +2,7 @@
 // sestoft@itu.dk * 2015-10-29
 
 import java.util.HashSet;
+import java.util.concurrent.*;
 
 public class TestLocking2 {
   public static void main(String[] args) {
@@ -21,7 +22,7 @@ public class TestLocking2 {
       for (int i = 0; i< count; i++){
       DoubleArrayList2 da = new DoubleArrayList2();
       da.add(i + count);
-      dal1.add(i);
+      //dal1.add(i);
    
       }
   });
@@ -42,6 +43,8 @@ public class TestLocking2 {
         System.out.println("Some thread was interrupted");
     }
 
+    //totalSize prints how many elements are in all of the DoubleArrayList objects
+    //allListSize prints how many DoubleArrayList objects there are (which is stored in CopyOnWriteArraySet)
     System.out.println(DoubleArrayList2.totalSize());
     System.out.println(DoubleArrayList2.allListSize());
   }
@@ -49,7 +52,7 @@ public class TestLocking2 {
 
 class DoubleArrayList2 {
   private static int totalSize = 0;
-  private static final HashSet<DoubleArrayList2> allLists = new HashSet<>();
+  private static  CopyOnWriteArraySet<DoubleArrayList2> allLists = new CopyOnWriteArraySet<>();
 
   // Invariant: 0 <= size <= items.length
   private double[] items = new double[2];
@@ -57,13 +60,8 @@ class DoubleArrayList2 {
 
   public DoubleArrayList2() {
    allLists.add(this);
-   //addtoAllList();
   
   }
-
-  // public synchronized  void addtoAllList(){
-  //   allLists.add(this);
-  // }
 
   // Number of items in the double list
   public synchronized int size() {
@@ -114,11 +112,11 @@ class DoubleArrayList2 {
     return totalSize;
   }
 
-  public synchronized static HashSet<DoubleArrayList2> allLists() {
+  public synchronized static CopyOnWriteArraySet<DoubleArrayList2> allLists() {
     return allLists;
   }
 
-  public synchronized static  void incrementTotalSize(){
+  public synchronized static void incrementTotalSize(){
     totalSize++;
 
   }
@@ -126,4 +124,5 @@ class DoubleArrayList2 {
   public synchronized static int allListSize(){
     return allLists.size();
   }
+
 }
