@@ -19,6 +19,8 @@ public class TestLocking2 {
 
     Thread t1 = new Thread(() -> {
       for (int i = 0; i< count; i++){
+      DoubleArrayList2 da = new DoubleArrayList2();
+      da.add(i + count);
       dal1.add(i);
    
       }
@@ -26,7 +28,8 @@ public class TestLocking2 {
 
   Thread t2 = new Thread(() -> {
     for (int i= 0; i< count; i++){
-      dal2.add(i);
+      DoubleArrayList2 da = new DoubleArrayList2();
+      da.add(i);
     }
 
   });
@@ -40,28 +43,35 @@ public class TestLocking2 {
     }
 
     System.out.println(DoubleArrayList2.totalSize());
+    System.out.println(DoubleArrayList2.allListSize());
   }
 }
 
 class DoubleArrayList2 {
   private static int totalSize = 0;
-  private static HashSet<DoubleArrayList2> allLists = new HashSet<>();
+  private static final HashSet<DoubleArrayList2> allLists = new HashSet<>();
 
   // Invariant: 0 <= size <= items.length
   private double[] items = new double[2];
   private int size = 0;
 
   public DoubleArrayList2() {
-    allLists.add(this);
+   allLists.add(this);
+   //addtoAllList();
+  
   }
 
+  // public synchronized  void addtoAllList(){
+  //   allLists.add(this);
+  // }
+
   // Number of items in the double list
-  public int size() {
+  public synchronized int size() {
     return size;
   }
 
   // Return item number i, if any
-  public double get(int i) {
+  public synchronized double get(int i) {
     if (0 <= i && i < size) 
       return items[i];
     else 
@@ -69,7 +79,7 @@ class DoubleArrayList2 {
   }
 
   // Add item x to end of list
-  public boolean add(double x) {
+  public synchronized boolean add(double x) {
     if (size == items.length) {
       double[] newItems = new double[items.length * 2];
       for (int i=0; i<items.length; i++)
@@ -83,7 +93,7 @@ class DoubleArrayList2 {
   }
 
   // Replace item number i, if any, with x
-  public double set(int i, double x) {
+  public synchronized double set(int i, double x) {
     if (0 <= i && i < size) {
       double old = items[i];
       items[i] = x;
@@ -93,23 +103,27 @@ class DoubleArrayList2 {
   }
 
   // The double list formatted as eg "[3.2, 4.7]"
-  public String toString() {
+  public synchronized String toString() {
     StringBuilder sb = new StringBuilder("[");
     for (int i=0; i<size; i++)
       sb.append(i > 0 ? ", " : "").append(items[i]);
     return sb.append("]").toString();
   }
 
-  public static int totalSize() {
+  public synchronized static int totalSize() {
     return totalSize;
   }
 
-  public static HashSet<DoubleArrayList2> allLists() {
+  public synchronized static HashSet<DoubleArrayList2> allLists() {
     return allLists;
   }
 
   public synchronized static  void incrementTotalSize(){
     totalSize++;
 
+  }
+
+  public synchronized static int allListSize(){
+    return allLists.size();
   }
 }
