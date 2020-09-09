@@ -33,16 +33,16 @@ public class Person {
 
 
     public static void main(String[] args) {
-        final int counts = 50000;
+        final int range = 50000;
             
             Thread t1 = new Thread(() -> {
-                for (int i=0; i<counts; i++){
+                for (int i=0; i<range; i++){
                     Person p = new Person();
                     System.out.println(p.getId());
             }});
     
             Thread t2 = new Thread(() -> {
-                for (int i=0; i<counts; i++){
+                for (int i=0; i<range; i++){
                     Person p = new Person();
                     System.out.println(p.getId());
             }});
@@ -53,7 +53,7 @@ public class Person {
             catch (InterruptedException exn) { 
                 System.out.println("Some thread was interrupted");
             }
-            System.out.println("Count should be " + counts*2 + " but it is" + Person.getCount());            
+            System.out.println("Range should be " + range*2 + " and it is " + Person.getCount());            
         
 
 
