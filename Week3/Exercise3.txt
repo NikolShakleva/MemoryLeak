@@ -28,12 +28,18 @@ Green --------------------------------------------------------------------------
      which one? And why?
 
 ANSWER:
+        It is better to use a thread-safe java library because someone else has already came up with a 
+        solution for the problem we just modify this solution to fit out problem 
+        We would use java.util.concurrent.ConcurrentLinkedQueue because we couldn't use the BlockingQueue
 
 2.  Section 5.5 in Goetz talks about different kinds of synchronizers. Which of the 
     mentioned kinds seems to be most suited for this problem (Latches, FutureTask, 
     Semaphores or Barriers)? And why?
 
 ANSWER:
+        semaphores are the most suitable choice because they manage a set of vertual permits meaning
+        that the number of threads which can execute certain methods is limited until the other threads release
+        the permits they were given.
 
 Yellow ------------------------------------------------------------------------------------
 
@@ -76,7 +82,9 @@ Green --------------------------------------------------------------------------
     be 18,703,729. How much time does this take? Hint: you can use System.nanoTime() to 
     measure the time it takes.
 
-ANSWER:
+ANSWER: The number of factors is 18,703,729
+        The time taken by the program to run is 17 seconds 
+        See TestCountFactors.java
 
 2.  For use in the next subquestion you will need a MyAtomicInteger class that represents 
     a thread-safe integer. It must have a method int addAndGet(int amount) that atomically 
@@ -86,6 +94,7 @@ ANSWER:
     java.util.concurrent.atomic classes.
 
 ANSWER:
+        See my automic integer class
 
 3.  Write a parallel program that uses 10 threads to count the total number of prime factors 
     of the integers in range 0 to 4,999,999. Divide the work so that the first thread 
@@ -94,11 +103,20 @@ ANSWER:
     MyAtomicInteger class. Do you still get the correct answer? How much time does this take?
 
 ANSWER:
+        The number of factors is 18,703,729
+        See PrimeFactor.java
+        The running time of the programme when we use multiple threads is 5 seconds
+
 
 4.  Could one implement MyAtomicInteger without synchronization, just using a volatile field? 
     Why or why not?
 
 ANSWER:
+        Only volatile field wouldn't be enough for the MyAtomicInteger class if the methods are not synchronized
+        because the value will be visible for all the threads but if multiple threads come and try to execute the add method
+        then the value of the count will be wrong.
+        If a volatile filed is implemented all the threads will be able to see the value. It is the programmer's
+        job to make sure that only one thread will be able to modify the count.
 
 Yellow ------------------------------------------------------------------------------------
 
@@ -142,6 +160,12 @@ Green --------------------------------------------------------------------------
     synchronized?
 
 ANSWER: 
+    See Histogram2.java
+    getspan donest have to e synchronized since counts is immutable.
+    because counts its immutable we put it as final
+    But the elements in the counts are mutable that is why the other methods need synchronized keyword
+
+
 
 2.  Now consider again counting the number of prime factors in a number p, as in Exercise 3.2.3 
     and file TestCountFactors.java. Use the Histogram2 class to write a parallel program that 
@@ -168,6 +192,10 @@ ANSWER:
     and 1). And of course the numbers in the second column should add up to 5 000 000.
 
 ANSWER: 
+        See class Histogram2
+        result after puting 30 bins:
+        [2, 348513, 979274, 1232881, 1015979, 660254, 374791, 197039, 98949, 48400, 23251,
+         11019, 5199, 2403, 1124, 510, 233, 102, 45, 21, 7, 3, 1, 0, 0, 0, 0, 0, 0, 0]
 
 Yellow ------------------------------------------------------------------------------------
 
