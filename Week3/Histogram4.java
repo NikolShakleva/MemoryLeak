@@ -1,55 +1,45 @@
-import java.util.Arrays;
+import java.util.concurrent.atomic.*;
 
-public class Histogram2 implements Histogram {
-  // the count is final because its mutable. Has fixed lenght
-  private final int[] counts;
-  // this filed doesnt need to automic long because the methods that access the field are synchronized
-    private int total=0;
+public class Histogram4 implements Histogram {
+    private final AtomicIntegerArray counts;
+    private AtomicInteger total;
   
-      public Histogram2(int span) {
-          this.counts = new int[span];
+      public Histogram4(int span) {
+          this.counts = new AtomicIntegerArray (span);
+          total = new AtomicInteger();
       }
-      // we need to synchronize because the counts is immutable but the elements inside the count(bins) 
-      //are mutabe
-      //Also interrelation between counts and total
+      // we still need to synchronize here becase the method uses both total and cunt which are interrelatrd
+      // when a method has 2 variables which are noth thread-safe but interrelated we still need to use synchronized
       public synchronized void increment(int bin) {
-          counts[bin] = counts[bin] + 1;
-          total++;
+          counts.getAndIncrement(bin);
+          total.incrementAndGet();
       }
-      // we need to synchronize because the count is immutable but the elements inside the counts(bins) 
-      //are mutabe
-      public synchronized int getCount(int bin) {
-          return counts[bin];
+  
+      public int getCount(int bin) {
+          return counts.get(bin);
       }
       
-      // we need to synchronize because the counts is immutable but the elements inside the count(bins) 
-      //are mutabe
-      //Also interrelation between counts and total
+       // we still need to synchronize here becase the method uses both total and cunt which are interrelatrd
+      // when a method has 2 variables which are noth thread-safe but interrelated we still need to use synchronized
       public synchronized float getPercentage(int bin){
         return getCount(bin) / getTotal() * 100;
       }
-  // this doesnt need to be synchronized because the count legth is fixed
+  
       public int getSpan() {
-          return counts.length;
+          return counts.length();
       }
       
-      // stays synchronized because the total is not atomic
-      public  synchronized int getTotal(){
-        return total;
+      
+      public int getTotal(){
+        return total.get();
       }
 
-      public void printArray() {
-          System.out.println(Arrays.toString(counts));
-      }
-    
       public static void dump(Histogram histogram) {
         for (int bin = 0; bin < histogram.getSpan(); bin++) {
             System.out.printf("%4d: %9d%n", bin, histogram.getCount(bin));
         }
         System.out.printf("      %9d%n", histogram.getTotal() );
     }
-
-    
 
       public static void main(String[] args) {
      
@@ -58,7 +48,7 @@ public class Histogram2 implements Histogram {
         int threadsNumber = 10;
         final int perThread = range/threadsNumber;
         Thread [] threads = new Thread [threadsNumber];
-        var hist = new Histogram2(30);
+        var hist = new Histogram4(30);
     
         for(int i=0; i<threadsNumber; i++) {
           final int from = perThread * i, 
@@ -80,9 +70,11 @@ public class Histogram2 implements Histogram {
     
         } catch (InterruptedException exn) { }
         long end = System.nanoTime();
-        hist.printArray();
         System.out.println("running time is: " + (end-start)/1_000_000_000);
-        Histogram2.dump(hist);
+        System.out.println("The total is: " + hist.getTotal());
+        Histogram4.dump(hist);
       }
 
 }
+
+

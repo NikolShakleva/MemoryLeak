@@ -31,7 +31,8 @@ public class PrimeFactor {
       final int from = perThread * i, 
       to = (i+1==threadsNumber) ? range : perThread * (i+1);
     threads[i] = new Thread(() -> {
-      var atomic = new MyAtomicInteger();
+      //var atomic = new MyAtomicInteger();
+     final  AtomicInteger atomic = new AtomicInteger();
      for (int k=from; k< to; k++) {
         atomic.addAndGet( TestCountFactors.countFactors(k));
       }

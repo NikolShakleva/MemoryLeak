@@ -38,7 +38,7 @@ ANSWER:
 
 ANSWER:
         semaphores are the most suitable choice because they manage a set of vertual permits meaning
-        that the number of threads which can execute certain methods is limited until the other threads release
+        that the number of threads which can execute certain methods is limited until another threads releases
         the permits they were given.
 
 Yellow ------------------------------------------------------------------------------------
@@ -112,8 +112,8 @@ ANSWER:
     Why or why not?
 
 ANSWER:
-        Only volatile field wouldn't be enough for the MyAtomicInteger class if the methods are not synchronized
-        because the value will be visible for all the threads but if multiple threads come and try to execute the add method
+        Only a volatile field wouldn't be enough for the MyAtomicInteger class if the methods are not synchronized
+        The value will be visible for all the threads but if multiple threads come and try to execute the addanfGet method
         then the value of the count will be wrong.
         If a volatile field is implemented, all the threads will be able to see the value. It is the programmer's
         job to make sure that only one thread will be able to modify the count.
@@ -125,6 +125,8 @@ Yellow -------------------------------------------------------------------------
     difference in speed or result? Should the AtomicInteger field be declared final?
 
 ANSWER:    
+        There is no difference neither in the result or the runnning time result when
+        implementing the java.util.concurrent.atomic
 
 ----------------------------------------------------------------------------------------
 Exercise 3.3  

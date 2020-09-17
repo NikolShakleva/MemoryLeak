@@ -12,8 +12,6 @@ public MyAtomicInteger () {
 
         }
     
-      
-    
         public synchronized int get(){
             return count;
         }

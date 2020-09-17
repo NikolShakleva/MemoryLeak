@@ -30,6 +30,7 @@ public void add(Integer e) {
     if(helperAdd()) {
         size.incrementAndGet();
         buffer.offer(e);
+        notifyAll();
     } else {
         try {
             wait();
@@ -56,6 +57,7 @@ public  void pop () {
     if((helperPop())) {
         size.decrementAndGet();
         buffer.poll();
+        notifyAll();
     } else {
          try {
         wait();
