@@ -7,11 +7,16 @@ class Benchmark {
   public static void main(String[] args) {
     SystemInfo();
     //Mark0();
+    System.out.println("Mark 1");
     Mark1();
-    // Mark2();
-    // Mark3();
-    // Mark4();
-    // Mark5();
+    System.out.println("Mark 2");
+    Mark2();
+    System.out.println("Mark 3");
+    Mark3();
+    System.out.println("Mark 4");
+    Mark4();
+    System.out.println("Mark 5");
+    Mark5();
     // Mark6("multiply", Benchmark::multiply);
     // Mark7("multiply", Benchmark::multiply);
     // MathFunctionBenchmarks();
@@ -183,7 +188,7 @@ class Benchmark {
 
   public static void Mark1() {         // NEARLY USELESS
     Timer t = new Timer();
-    int count = 20000_000;
+    int count = 20_000_000;
     for (int i=0; i<count; i++) {
         double dummy = multiply( i);
     }
