@@ -1,20 +1,20 @@
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+//import java.util.concurrent.locks.Condition;
+//import java.util.concurrent.locks.Lock;
+//import java.util.concurrent.locks.ReentrantLock;
 
 
 
 class BoundedBuffer {
 private final int limit;
 private final AtomicInteger size = new AtomicInteger(0);
-private final Lock lock = new ReentrantLock();
+//private final Lock lock = new ReentrantLock();
 // private boolean full = false;
 // private boolean empty = false;
 private ConcurrentLinkedQueue<Integer>  buffer;
-private final Condition full = lock.newCondition();
-private final Condition empty = lock.newCondition();
+// private final Condition full = lock.newCondition();
+// private final Condition empty = lock.newCondition();
 
 
 public BoundedBuffer ( int limit) {
