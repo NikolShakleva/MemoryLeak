@@ -158,7 +158,7 @@ public class TestCountPrimesThreads {
   }
 }
 
-/*class LongCounter {
+class LongCounter {
   private long count = 0;
   public synchronized void increment() {
     count = count + 1;
@@ -166,14 +166,14 @@ public class TestCountPrimesThreads {
   public synchronized long get() { 
     return count; 
   }
-}*/
-
-class LongCounter {
-  private AtomicLong count = new AtomicLong();
-  public synchronized void increment() {
-    count.getAndIncrement();
-  }
-  public synchronized long get() { 
-    return count.get(); 
-  }
 }
+
+// class LongCounter {
+//   private AtomicLong count = new AtomicLong();
+//   public synchronized void increment() {
+//     count.getAndIncrement();
+//   }
+//   public synchronized long get() { 
+//     return count.get(); 
+//   }
+// }

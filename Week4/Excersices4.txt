@@ -64,6 +64,8 @@ In this exercise you will write code for calculating means and standard variatio
     Explain what is calculated here and relate to the formulas on the "slide" entitled 
     Variance from the lecture.
 
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
     Complete this primitive code for calculating the mean and standard variaton of the 
     numbers in the array a:
 
