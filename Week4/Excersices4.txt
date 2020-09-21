@@ -180,7 +180,7 @@ This lambda can be used in the benchmarking code (Benchmark.java)
 𝐀𝐍𝐒𝐖𝐄𝐑
 
 ----------------------------------------------------------------------------------------    
-Exercise4.6 
+Exercise 4.6 
 ----------------------------------------------------------------------------------------
 
 This exercise is a follow up on the question asked in the PCPP forum: 
