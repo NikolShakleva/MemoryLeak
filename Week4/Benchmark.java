@@ -20,7 +20,7 @@ class Benchmark {
     
     // Mark6("multiply", Benchmark::multiply);
       
-    //  Mark6("Uncontended lock", i -> {synchronized (Benchmark.class) {return i;}});
+      Mark6("Uncontended lock", i -> {synchronized (Benchmark.class) {return i;}});
       Mark6("volatile", Exp::volExp);
       Mark6("non-volatile", Exp::nonVolExp);
     
