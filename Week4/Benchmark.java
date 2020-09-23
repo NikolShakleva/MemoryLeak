@@ -19,10 +19,10 @@ class Benchmark {
     // Mark5();
     
     // Mark6("multiply", Benchmark::multiply);
-      
-      Mark6("Uncontended lock", i -> {synchronized (Benchmark.class) {return i;}});
-      Mark6("volatile", Exp::volExp);
-      Mark6("non-volatile", Exp::nonVolExp);
+    final Object obj = new Object();
+      Mark6("Uncontended lock", i -> {synchronized (obj) {return i;}});
+      // Mark6("volatile", Exp::volExp);
+      // Mark6("non-volatile", Exp::nonVolExp);
     
     // Mark7("multiply", Benchmark::multiply);
     // MathFunctionBenchmarks();

@@ -225,36 +225,38 @@ Green --------------------------------------------------------------------------
     Include the results in your hand-in and comment on them: Are they plausible? 
     Any surprises?
 
-ANSWER: According to our results the estimated cost of getting an uncontended lock is 20,3 ns
+ANSWER: According to our results the estimated cost of getting an uncontended lock is 8,1 ns
 
-# OS:   Mac OS X; 10.15.6; x86_64
-# JVM:  Oracle Corporation; 11.0.4
-# CPU:  null; 8 "cores"
-# Date: 2020-09-21T23:28:32+0200
-Uncontended lock                    856,0 ns    1542,91          2
-Uncontended lock                    353,4 ns     155,64          4
-Uncontended lock                    361,3 ns     145,06          8
-Uncontended lock                    298,3 ns      35,23         16
-Uncontended lock                    327,6 ns      87,83         32
-Uncontended lock                     50,4 ns      14,81         64
-Uncontended lock                     42,8 ns       4,79        128
-Uncontended lock                     41,2 ns       1,97        256
-Uncontended lock                     41,2 ns       4,42        512
-Uncontended lock                     40,3 ns       2,79       1024
-Uncontended lock                     39,1 ns       1,70       2048
-Uncontended lock                     39,0 ns       1,67       4096
-Uncontended lock                     37,3 ns       9,37       8192
-Uncontended lock                     24,0 ns       3,91      16384
-Uncontended lock                     21,4 ns       0,31      32768
-Uncontended lock                     21,3 ns       1,57      65536
-Uncontended lock                     20,5 ns       1,35     131072
-Uncontended lock                     20,6 ns       0,95     262144
-Uncontended lock                     20,3 ns       0,31     524288
-Uncontended lock                     20,3 ns       0,27    1048576
-Uncontended lock                     20,3 ns       0,27    2097152
-Uncontended lock                     20,3 ns       0,20    4194304
-Uncontended lock                     20,3 ns       0,10    8388608
-Uncontended lock                     22,5 ns       4,92   16777216
+# OS:   Windows 10; 10.0; amd64
+# JVM:  AdoptOpenJDK; 11.0.8
+# CPU:  Intel64 Family 6 Model 61 Stepping 4, GenuineIntel; 4 "cores"
+# Date: 2020-09-23T16:14:37+0200
+Uncontended lock                   1320.0 ns    3157.39          2
+Uncontended lock                    330.0 ns     280.66          4
+Uncontended lock                    567.5 ns     476.95          8
+Uncontended lock                    690.0 ns     936.34         16
+Uncontended lock                    114.1 ns      51.12         32
+Uncontended lock                    126.6 ns      70.17         64
+Uncontended lock                    162.0 ns      65.27        128
+Uncontended lock                    274.7 ns     357.26        256
+Uncontended lock                    148.5 ns      12.69        512
+Uncontended lock                    209.1 ns     133.89       1024
+Uncontended lock                    114.6 ns      49.43       2048
+Uncontended lock                    154.0 ns      51.20       4096
+Uncontended lock                     34.4 ns      22.89       8192
+Uncontended lock                     59.4 ns      17.45      16384
+Uncontended lock                     27.7 ns      10.12      32768
+Uncontended lock                     16.7 ns       9.64      65536
+Uncontended lock                     11.0 ns       6.08     131072
+Uncontended lock                      9.0 ns       1.66     262144
+Uncontended lock                      8.7 ns       1.10     524288
+Uncontended lock                      9.1 ns       1.64    1048576
+Uncontended lock                      8.1 ns       0.20    2097152
+Uncontended lock                      8.1 ns       0.25    4194304
+Uncontended lock                      8.4 ns       0.61    8388608
+Uncontended lock                      8.2 ns       0.18   16777216
+Uncontended lock                      9.6 ns       2.43   33554432
+
 
 ----------------------------------------------------------------------------------------    
 Exercise4.6 
