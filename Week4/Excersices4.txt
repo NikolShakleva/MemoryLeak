@@ -35,6 +35,13 @@ Green --------------------------------------------------------------------------
 
     ANSWER:
 
+    Mark1: Because the count is 20 000 000 which is a high number,  the execution time drops to 0.2 ns which is highly implausible
+    Mark2: the result seem reasonable because we removed the Just -in time optimization  by adding a parameter outside of the loop (dummy)
+    Mark3: The running times are close to each other and they are close to the measurement in Mark2. Therefore, the result is reasonable.
+    Mark4: this calculates the standard deviation. The result looks satisfactory
+    
+
+
 
 Yellow -----------------------------------------------------------------------------------
 
@@ -43,7 +50,9 @@ Yellow -------------------------------------------------------------------------
     where they deviate significantly from those shown in the Microbenchmarks note.
 
     ANSWER:
-
+        Mark5: also calculates the standard deviation but prints the different counts.
+        No surprises everything runs as in the paper. Even the st deviation is the higher for the count of 2048
+        94.2 ns +/-   176.79       2048
 
 ----------------------------------------------------------------------------------------
 Exercise 4.2 
@@ -64,6 +73,9 @@ Green --------------------------------------------------------------------------
     Explain what is calculated here and relate to the formulas on the "slide" entitled 
     Variance from the lecture.
 
+    ANSWER: mean = average of all the running times
+            sdev = standard deviation, a measure of the amount of varation from a set of values(running times)
+
     Complete this primitive code for calculating the mean and standard variaton of the 
     numbers in the array a:
 
@@ -81,17 +93,21 @@ Green --------------------------------------------------------------------------
 
     Your hand-in must contain the results of running the completed program.
     Now change the values in a to be: 
-    30.7, 100.2, 30.1, 30.7, 20.2, 30.4, 2, 30.3, 30.5, 5.4 . 
+    30.7, 30.3, 30.1, 30.7, 50.2, 30.4, 30.9, 30.3, 30.5, 30.8
+    30.7, 100.2, 30.1, 30.7, 20.2, 30.4, 2,   30.3, 30.5, 5.4 . 
+
     Run the program with these numbers and include the results in your hand in.
 
-    ANSWER:
+    ANSWER: first array:        32,5 ns +/-  6,228      34,907
+            second array:       31,0 ns +/- 26,674     640,371
 
 Yellow ----------------------------------------------------------------------------------
 
 2.  Assume that you include one more observation 25 in the sample (contents of array a). 
     Is 25 an outlier in the first set of numbers? In the second?
 
-    ANSWER:
+    ANSWER: It will be an outlier in the first array beacuse it deviates more than one standard deviation from the norm 
+            It will not be an outlier in the second beacuse it deviates less than one standard deviation from the norm.
 
 ----------------------------------------------------------------------------------------
 Exercise 4.3 
@@ -107,7 +123,14 @@ Green --------------------------------------------------------------------------
     discuss any strangenesses, such as large variation in the time measurements for 
     each case.
 
-    ANSWER:
+    ANSWER: we experienced a jump:
+                For the hashcode on count 512
+                For the pointCreation on count 64 and 4
+                For the Thread's work count 32
+                Thread create count 256, 2048
+                Thread create start on 1024, 4096
+                Thread create start join on 256
+                Uncontended lock on 512, 16
 
 
 Yellow ----------------------------------------------------------------------------------
@@ -118,7 +141,7 @@ Yellow -------------------------------------------------------------------------
     Are they plausible? Any surprises? Mention any cases where they deviate significantly 
     from those shown in the lecture.
 
-    ANSWER:
+    ANSWER: The results from using Mark7 is similar to the lowest consistent numbers from using Mark6
 
 ----------------------------------------------------------------------------------------
 Exercise 4.4 
@@ -142,7 +165,7 @@ Green --------------------------------------------------------------------------
     relation between the number of threads that gave best performance, and the number 
     of cores in the computer you ran the benchmarks on? Any surprises?
 
-    ANSWER:
+    ANSWER: The results show that it does not make sense to have more threads than your machine have cores.
 
 Yellow ----------------------------------------------------------------------------------
 
@@ -151,6 +174,31 @@ Yellow -------------------------------------------------------------------------
     Perform the measurements again as indicated above. Discuss the results: 
     is the performance of AtomicLong better or worse than that of LongCounter? 
     Should one in general use adequate built-in classes and methods when they exist?
+
+    ANSWER: The Atomic class is much faster than the non-atomic which is one reasons why one should use a built-in class and method when they exists
+
+
+# OS:   Mac OS X; 10.15.6; x86_64
+# JVM:  Oracle Corporation; 11.0.4
+# CPU:  null; 8 "cores"
+# Date: 2020-09-20T22:24:00+0200
+countParallel                     11215,4 us     973,51          2
+countParallel                     10975,7 us     141,32          4
+countParallel                     10969,7 us      82,21          8
+countParallel                     10982,9 us     173,86         16
+countParallel                     11799,9 us    1897,54         32
+
+------------
+AtomicLong
+# OS:   Mac OS X; 10.15.6; x86_64
+# JVM:  Oracle Corporation; 11.0.4
+# CPU:  null; 8 "cores"
+# Date: 2020-09-20T22:21:57+0200
+countParallel                     11647,5 us    1055,70          2
+countParallel                     10975,3 us      75,30          4
+countParallel                     10951,7 us     103,70          8
+countParallel                     11072,3 us     210,84         16
+countParallel                     10937,5 us     117,03         32
 
 ----------------------------------------------------------------------------------------
 Exercise 4.5 
@@ -172,7 +220,7 @@ Green --------------------------------------------------------------------------
     Include the results in your hand-in and comment on them: Are they plausible? 
     Any surprises?
 
-
+ANSWER: According to our results the estimated cost of getting an uncontended lock is 20,3 ns
 
 ----------------------------------------------------------------------------------------    
 Exercise4.6 
@@ -246,7 +294,7 @@ Green --------------------------------------------------------------------------
     and a normal int. Include the results in your hand-in and comment on them: 
     Are they plausible? Any surprises?
 
-    ANSWER:
+    ANSWER: Using a volatile int is much slower since it has to push the value down to memory after each increment.
 
 
 

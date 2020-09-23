@@ -7,12 +7,23 @@ class Benchmark {
   public static void main(String[] args) {
     SystemInfo();
     //Mark0();
-    Mark1();
+    // System.out.println("Mark 1");
+    // Mark1();
+    // System.out.println("Mark 2");
     // Mark2();
+    // System.out.println("Mark 3");
     // Mark3();
+    // System.out.println("Mark 4");
     // Mark4();
+    // System.out.println("Mark 5");
     // Mark5();
+    
     // Mark6("multiply", Benchmark::multiply);
+      
+      Mark6("Uncontended lock", i -> {synchronized (Benchmark.class) {return i;}});
+      Mark6("volatile", Exp::volExp);
+      Mark6("non-volatile", Exp::nonVolExp);
+    
     // Mark7("multiply", Benchmark::multiply);
     // MathFunctionBenchmarks();
     // final java.util.Random rnd = new java.util.Random();
@@ -155,6 +166,8 @@ class Benchmark {
     }
   }
 
+  
+
   // ========== Infrastructure code ==========
 
   public static void SystemInfo() {
@@ -183,7 +196,7 @@ class Benchmark {
 
   public static void Mark1() {         // NEARLY USELESS
     Timer t = new Timer();
-    int count = 20000_000;
+    int count = 20_000_000;
     for (int i=0; i<count; i++) {
         double dummy = multiply( i);
     }
@@ -365,4 +378,35 @@ class Benchmark {
   public static double Mark8Setup(String msg, String info, Benchmarkable f) {
     return Mark8Setup(msg, info, f, 10, 0.25);
   }
+}
+class Exp {
+  public static double volExp (int N) {
+      PerfTest pt = new PerfTest(); 
+      double start = System.nanoTime(); 
+      for (int i = 0; i < N; i++) {
+          pt.vInc(); 
+      }
+      return System.nanoTime()-start; 
+      }
+
+public static double nonVolExp (int N) { 
+  PerfTest pt = new PerfTest(); 
+  double start = System.nanoTime(); 
+  for (int i = 0; i < N; i++) {
+      pt.inc(); 
+  }
+  return System.nanoTime()-start; }
+}
+
+class PerfTest {
+  private volatile int vCtr;
+  private int ctr;
+
+  public void vInc () {
+      vCtr++;
+  }
+
+public void inc () {
+  ctr++;
+}
 }
