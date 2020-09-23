@@ -36,9 +36,10 @@ Green --------------------------------------------------------------------------
     ANSWER:
 
     Mark1: Because the count is 20 000 000 which is a high number,  the execution time drops to 0.2 ns which is highly implausible
-    Mark 2: the result seem reasonable because we removed the Just -in time optimization  by adding a parameter outside of the loop (dummy)
+    Mark2: the result seem reasonable because we removed the Just -in time optimization  by adding a parameter outside of the loop (dummy)
     Mark3: The running times are close to each other and they are close to the measurement in Mark2. Therefore, the result is reasonable.
     Mark4: this calculates the standard deviation. The result looks satisfactory
+    
 
 
 
@@ -49,7 +50,7 @@ Yellow -------------------------------------------------------------------------
     where they deviate significantly from those shown in the Microbenchmarks note.
 
     ANSWER:
-
+        Mark5: also calculates the standard deviation but prints the different counts.
         No surprises everything runs as in the paper. Even the st deviation is the higher for the count of 2048
         94.2 ns +/-   176.79       2048
 
@@ -71,6 +72,9 @@ Green --------------------------------------------------------------------------
 
     Explain what is calculated here and relate to the formulas on the "slide" entitled 
     Variance from the lecture.
+
+    ANSWER: mean = average of all the running times
+            sdev = standard deviation, a measure of the amount of varation from a set of values(running times)
 
     Complete this primitive code for calculating the mean and standard variaton of the 
     numbers in the array a:
