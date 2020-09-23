@@ -98,7 +98,8 @@ Green --------------------------------------------------------------------------
 
     Run the program with these numbers and include the results in your hand in.
 
-    ANSWER: See txt file
+    ANSWER: first array:        32,5 ns +/-  6,228      34,907
+            second array:       31,0 ns +/- 26,674     640,371
 
 Yellow ----------------------------------------------------------------------------------
 
@@ -174,7 +175,7 @@ Yellow -------------------------------------------------------------------------
     is the performance of AtomicLong better or worse than that of LongCounter? 
     Should one in general use adequate built-in classes and methods when they exist?
 
-    ANSWER: We did not see much of a difference from the result but one should use a built-in class and method when they exists
+    ANSWER: The Atomic class is much faster than the non-atomic which is one reasons why one should use a built-in class and method when they exists
 
 
 # OS:   Mac OS X; 10.15.6; x86_64
