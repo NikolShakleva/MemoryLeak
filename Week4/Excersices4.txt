@@ -53,6 +53,7 @@ Yellow -------------------------------------------------------------------------
         Mark5: also calculates the standard deviation but prints the different counts.
         No surprises everything runs as in the paper. Even the st deviation is the higher for the count of 2048
         94.2 ns +/-   176.79       2048
+        See BenchmarkingResults folder
 
 ----------------------------------------------------------------------------------------
 Exercise 4.2 
@@ -101,13 +102,15 @@ Green --------------------------------------------------------------------------
     ANSWER: first array:        32,5 ns +/-  6,228      34,907
             second array:       31,0 ns +/- 26,674     640,371
 
+    See MeanVar.java
+
 Yellow ----------------------------------------------------------------------------------
 
 2.  Assume that you include one more observation 25 in the sample (contents of array a). 
     Is 25 an outlier in the first set of numbers? In the second?
 
-    ANSWER: It will be an outlier in the first array beacuse it deviates more than one standard deviation from the norm 
-            It will not be an outlier in the second beacuse it deviates less than one standard deviation from the norm.
+    ANSWER: It will be an outlier in the first array because it deviates more than one standard deviation from the norm. 
+            It will not be an outlier in the second because it deviates less than one standard deviation from the norm.
 
 ----------------------------------------------------------------------------------------
 Exercise 4.3 
@@ -124,14 +127,15 @@ Green --------------------------------------------------------------------------
     each case.
 
     ANSWER: we experienced a jump:
-                For the hashcode on count 512
-                For the pointCreation on count 64 and 4
-                For the Thread's work count 32
-                Thread create count 256, 2048
-                Thread create start on 1024, 4096
-                Thread create start join on 256
-                Uncontended lock on 512, 16
-
+                For the "hashcode" on count 512
+                For the "pointCreation" on count 64 and 4
+                For the "Thread's work"  on count 32
+                For the "Thread create" on count 256, 2048
+                For the "Thread create start" on count 1024, 4096
+                For the "Thread create start join" on count 256
+                For the "Uncontended lock" on count 512, 16
+    
+    Which is probably caused by some  internal/external disturbance.
 
 Yellow ----------------------------------------------------------------------------------
 
@@ -160,6 +164,7 @@ Green --------------------------------------------------------------------------
     measure just for 1. . . 16 threads instead.
 
     ANSWER:
+    See BenchmarkingResults folder - szga_TestCountsPrimesThreads
 
 2.  Reflect and comment on the results; are they plausible? Is there any reasonable 
     relation between the number of threads that gave best performance, and the number 
@@ -175,30 +180,30 @@ Yellow -------------------------------------------------------------------------
     is the performance of AtomicLong better or worse than that of LongCounter? 
     Should one in general use adequate built-in classes and methods when they exist?
 
-    ANSWER: The Atomic class is much faster than the non-atomic which is one reasons why one should use a built-in class and method when they exists
+    ANSWER: The Atomic class is much faster than the non-atomic, which is one reasons why one should use a built-in class and method when possible.
+        See BenchmarkingResults folder - szga_TestCountsPrimesThreads
 
+Non-atomic:
+# OS:   Windows 10; 10.0; amd64
+# JVM:  AdoptOpenJDK; 11.0.4
+# CPU:  Intel64 Family 6 Model 142 Stepping 12, GenuineIntel; 8 "cores"
+# Date: 2020-09-23T15:08:31+0200
+countParallel                     23579,7 us    2716,38          2
+countParallel                     30478,7 us    3600,79          4
+countParallel                     24086,0 us    2514,05          8
+countParallel                     24617,3 us     623,95         16
 
-# OS:   Mac OS X; 10.15.6; x86_64
-# JVM:  Oracle Corporation; 11.0.4
-# CPU:  null; 8 "cores"
-# Date: 2020-09-20T22:24:00+0200
-countParallel                     11215,4 us     973,51          2
-countParallel                     10975,7 us     141,32          4
-countParallel                     10969,7 us      82,21          8
-countParallel                     10982,9 us     173,86         16
-countParallel                     11799,9 us    1897,54         32
+atomic:
+# OS:   Windows 10; 10.0; amd64
+# JVM:  AdoptOpenJDK; 11.0.4
+# CPU:  Intel64 Family 6 Model 142 Stepping 12, GenuineIntel; 8 "cores"
+# Date: 2020-09-22T15:06:53+0200
+countParallel                      8421,8 us     629,30          2
+countParallel                      9000,5 us    1075,08          4
+countParallel                      8357,6 us     317,44          8
+countParallel                      8344,9 us     228,84         16
+countParallel                      8198,2 us     146,79         32
 
-------------
-AtomicLong
-# OS:   Mac OS X; 10.15.6; x86_64
-# JVM:  Oracle Corporation; 11.0.4
-# CPU:  null; 8 "cores"
-# Date: 2020-09-20T22:21:57+0200
-countParallel                     11647,5 us    1055,70          2
-countParallel                     10975,3 us      75,30          4
-countParallel                     10951,7 us     103,70          8
-countParallel                     11072,3 us     210,84         16
-countParallel                     10937,5 us     117,03         32
 
 ----------------------------------------------------------------------------------------
 Exercise 4.5 
@@ -221,6 +226,35 @@ Green --------------------------------------------------------------------------
     Any surprises?
 
 ANSWER: According to our results the estimated cost of getting an uncontended lock is 20,3 ns
+
+# OS:   Mac OS X; 10.15.6; x86_64
+# JVM:  Oracle Corporation; 11.0.4
+# CPU:  null; 8 "cores"
+# Date: 2020-09-21T23:28:32+0200
+Uncontended lock                    856,0 ns    1542,91          2
+Uncontended lock                    353,4 ns     155,64          4
+Uncontended lock                    361,3 ns     145,06          8
+Uncontended lock                    298,3 ns      35,23         16
+Uncontended lock                    327,6 ns      87,83         32
+Uncontended lock                     50,4 ns      14,81         64
+Uncontended lock                     42,8 ns       4,79        128
+Uncontended lock                     41,2 ns       1,97        256
+Uncontended lock                     41,2 ns       4,42        512
+Uncontended lock                     40,3 ns       2,79       1024
+Uncontended lock                     39,1 ns       1,70       2048
+Uncontended lock                     39,0 ns       1,67       4096
+Uncontended lock                     37,3 ns       9,37       8192
+Uncontended lock                     24,0 ns       3,91      16384
+Uncontended lock                     21,4 ns       0,31      32768
+Uncontended lock                     21,3 ns       1,57      65536
+Uncontended lock                     20,5 ns       1,35     131072
+Uncontended lock                     20,6 ns       0,95     262144
+Uncontended lock                     20,3 ns       0,31     524288
+Uncontended lock                     20,3 ns       0,27    1048576
+Uncontended lock                     20,3 ns       0,27    2097152
+Uncontended lock                     20,3 ns       0,20    4194304
+Uncontended lock                     20,3 ns       0,10    8388608
+Uncontended lock                     22,5 ns       4,92   16777216
 
 ----------------------------------------------------------------------------------------    
 Exercise4.6 
@@ -290,12 +324,55 @@ The code attempts to measure the performance difference between a volatile int a
 
 Green ----------------------------------------------------------------------------------- 
 
-1.  Use Mark6 (fromBendchmark.java) to compare the performance of incrementing a volatile int
+1.  Use Mark6 (from Bendchmark.java) to compare the performance of incrementing a volatile int
     and a normal int. Include the results in your hand-in and comment on them: 
     Are they plausible? Any surprises?
 
     ANSWER: Using a volatile int is much slower since it has to push the value down to memory after each increment.
 
+
+# OS:   Mac OS X; 10.15.6; x86_64
+# JVM:  Oracle Corporation; 11.0.4
+# CPU:  null; 8 "cores"
+# Date: 2020-09-22T00:15:38+0200
+volatile                          11878,6 ns   35897,46          2
+volatile                            602,4 ns     101,86          4
+volatile                          17703,7 ns   52902,59          8
+volatile                            692,8 ns     106,34         16
+volatile                            810,4 ns     117,29         32
+volatile                            588,5 ns     272,65         64
+volatile                            826,7 ns     130,68        128
+volatile                            213,1 ns       8,81        256
+volatile                            297,3 ns       4,09        512
+volatile                            472,2 ns      12,94       1024
+volatile                            847,1 ns      58,87       2048
+volatile                           1578,1 ns      69,86       4096
+volatile                           3015,9 ns      22,61       8192
+volatile                           5784,7 ns     121,95      16384
+volatile                          11375,5 ns      55,47      32768
+----------------------
+non-volatile                       1284,9 ns    2949,95          2
+non-volatile                        371,5 ns      73,01          4
+non-volatile                        869,9 ns     701,74          8
+non-volatile                        513,9 ns     108,89         16
+non-volatile                        741,9 ns     111,76         32
+non-volatile                        301,0 ns      83,91         64
+non-volatile                        277,8 ns      25,47        128
+non-volatile                         78,4 ns      13,12        256
+non-volatile                        108,4 ns      39,00        512
+non-volatile                         98,3 ns       7,41       1024
+non-volatile                         94,5 ns       2,81       2048
+non-volatile                         95,3 ns       5,00       4096
+non-volatile                        100,5 ns       5,58       8192
+non-volatile                         97,2 ns       5,80      16384
+non-volatile                         68,9 ns       4,00      32768
+non-volatile                         69,4 ns       3,12      65536
+non-volatile                         69,9 ns       1,76     131072
+non-volatile                         69,1 ns       1,15     262144
+non-volatile                         68,8 ns       0,83     524288
+non-volatile                         68,7 ns       0,74    1048576
+non-volatile                         68,7 ns       0,45    2097152
+non-volatile                         68,8 ns       0,42    4194304
 
 
 
