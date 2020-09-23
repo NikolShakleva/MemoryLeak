@@ -1,0 +1,9 @@
+# OS:   Windows 10; 10.0; amd64
+# JVM:  AdoptOpenJDK; 11.0.4
+# CPU:  Intel64 Family 6 Model 142 Stepping 12, GenuineIntel; 8 "cores"
+# Date: 2020-09-22T15:06:53+0200
+countParallel                      8421,8 us     629,30          2
+countParallel                      9000,5 us    1075,08          4
+countParallel                      8357,6 us     317,44          8
+countParallel                      8344,9 us     228,84         16
+countParallel                      8198,2 us     146,79         32

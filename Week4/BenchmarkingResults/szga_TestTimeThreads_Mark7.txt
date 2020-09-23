@@ -1,0 +1,12 @@
+# OS:   Windows 10; 10.0; amd64
+# JVM:  AdoptOpenJDK; 11.0.4
+# CPU:  Intel64 Family 6 Model 142 Stepping 12, GenuineIntel; 8 "cores"
+# Date: 2020-09-22T15:00:28+0200
+hashCode()                            2,1 ns       0,02  134217728
+Point creation                       49,6 ns       0,33    8388608
+Thread's work                      4071,3 ns      18,49      65536
+Thread create                       647,2 ns       3,89     524288
+Thread create start               94476,2 ns    1540,06       4096
+Thread create start join         143978,7 ns    1414,58       2048
+ai value = 1433540000
+Uncontended lock                      4,5 ns       0,08   67108864

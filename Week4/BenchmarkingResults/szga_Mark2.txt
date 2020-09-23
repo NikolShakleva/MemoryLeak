@@ -1,0 +1,6 @@
+# OS:   Windows 10; 10.0; amd64
+# JVM:  AdoptOpenJDK; 11.0.4
+# CPU:  Intel64 Family 6 Model 142 Stepping 12, GenuineIntel; 8 "cores"
+# Date: 2020-09-22T14:35:59+0200
+  19,1 ns
+  19,1 ns
