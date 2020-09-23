@@ -293,7 +293,7 @@ Green --------------------------------------------------------------------------
     and a normal int. Include the results in your hand-in and comment on them: 
     Are they plausible? Any surprises?
 
-    ANSWER:
+    ANSWER: Using a volatile int is much slower since it has to push the value down to memory after each increment.
 
 
 
