@@ -219,7 +219,7 @@ Green --------------------------------------------------------------------------
     Include the results in your hand-in and comment on them: Are they plausible? 
     Any surprises?
 
-
+ANSWER: According to our results the estimated cost of getting an uncontended lock is 20,3 ns
 
 ----------------------------------------------------------------------------------------    
 Exercise4.6 
