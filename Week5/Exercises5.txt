@@ -1,4 +1,4 @@
-Goal of the exercises
+GOAL OF EXERCISES
 Exercises week 5
 
 The goals of these exercises supports the topics of chapter 6 and 8 in Goetz. 
@@ -14,25 +14,25 @@ It generates a number of transactions to move money between accounts. Each trans
 simulate transaction time by sleeping 50 milliseconds. The transactions are randomly 
 generated, but ensures that the source and target accounts are not the same.
 
-Green -----------------------------------------------------------------------------------
+📗 Green -------------------------------------------------------------------------------
 
 1.  Use the nanoSecondtimer to verify that the time it takes to run the program is 
     proportional to the transaction time. There is statement which should be removed 
     from the code to get reasonable measurements.
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 2.  Change the main program so two threads generate and execute transactions. 
     This will potentially make the system incorrect. Where is the error located? 
     Fix the problem. Hint: Goetz chap 10 introduces the idea of lock-ordering. 
     You can use the ID of the account instead of hashCode() as he propose in listing 10.3.
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 3.  The number of threads one can create depends on the OS. How many are you 
     able to make on your JVM? How do you find out?
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 4.  On page 2051 Goetz writes: "Whenever you see code of the form: 
     new Thread(runnable).start() and you think you might at some point want a 
@@ -41,26 +41,26 @@ ANSWER:
     Change the program to use a the executor framework instead of raw threads. 
     Make it use a fixed size thread pool.
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 5.  Is there a way to tell when the program finishes? Why/ Why not?
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
-Yellow ----------------------------------------------------------------------------------
+📒Yellow -------------------------------------------------------------------------------
 
 
 6.  Ensure that the executor shuts down after all tasks has been executed, and make the
     main thread print out how long it took from start of the executor to the executor has 
     successfully shut down.
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 7.  How many threads are needed in the fixed size thread pool to obtain best performance? 
     Try to vary the sleep time from its current value of 50 down to 1, 
     in steps 50,40,30,20,10,1. How does sleep time influence best pool size?
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 ----------------------------------------------------------------------------------------
 Exercise 5.2 
@@ -69,17 +69,17 @@ Use the lecture’s example in file TestCountPrimesTasks.java to count prime num
 using tasks and the executor framework instead of explicitly creating threads for each 
 concurrent activity.
 
-Yellow ----------------------------------------------------------------------------------
+📒Yellow -------------------------------------------------------------------------------
 
 1.  Using a CachedThreadPool as executor, measure the time consumption as a function of 
     the number of tasks used to determine whether a given number is a prime. The Mark7 
     method is relevant.
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 2.  Use a WorkStealingPool and repeat the experiments.
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 3.  Use Excel or gnuplot or GoogleDocs on line or someother charting package to make 
     graphs of the execution time as a function of the number of tasks. Do this for the 
@@ -92,7 +92,7 @@ ANSWER:
     Is there any reasonable relation between the number of threads and the number of 
     cores in the computer you ran the benchmarks on? Any surprises?
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 ----------------------------------------------------------------------------------------
 Exercise 5.3
@@ -106,12 +106,12 @@ File TestDownload.java contains a declaration of a method getPage(url, maxLines)
 fetches at most maxLines lines of the body of the webpage at url, or throws an exception.
 
 
-Yellow ----------------------------------------------------------------------------------
+📒Yellow -------------------------------------------------------------------------------
 
 1.  First, run that code to fetch and print the first 10 lines of www.wikipedia.org to 
     see that the code and net connection works.
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 2.  write a sequential method getPages(urls, maxLines) that given an array urls of 
     webpage URLs fetches up to maxLines lines of each of those webpages, and returns 
@@ -125,7 +125,7 @@ ANSWER:
     result print the URL and the number of characters in the corresponding body text — 
     the latter is a sanity check to see that something was fetched at all.
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 3.  Use the Timer class — not the Mark6 or Mark7 methods — for simple wall-clock measurement 
     (described in the Microbenchmarks lecture note from week 4) to measure and print the 
@@ -142,7 +142,7 @@ ANSWER:
     run the same web requests many times, and this might be regarded as a denial-of-service 
     attack by the websites, which could then block requests from your network).
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
 
 4.  Now create a new parallel version getPagesParallel of the getPagesmethod that creates a 
     separate task (not thread) for each page to fetch. It should submit the tasks to an 
@@ -155,4 +155,5 @@ ANSWER:
     second request is even initiated, and so on; meanwhile the CPU and the network sits 
     mostly idle, wasting much time.
 
-ANSWER:
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
