@@ -21,18 +21,76 @@ generated, but ensures that the source and target accounts are not the same.
     from the code to get reasonable measurements.
 
 𝐀𝐍𝐒𝐖𝐄𝐑:
+    We removed the print statement.
+    The program running time (without printing ) is : 293928000
+    And single transactions take :
+    (with printing)
+    single transaction time: 59126400
+    single transaction time: 59627600
+    single transaction time: 64979800
+    single transaction time: 64017300
+    single transaction time: 50039100
+    transaction time: 415093600
+    program time : 415118600
+
+    If we divide the program's running time with a single transaction time, we get 4,9 which is reasonable since there
+    are 5 transactions alltogether.
+
 
 2.  Change the main program so two threads generate and execute transactions. 
     This will potentially make the system incorrect. Where is the error located? 
     Fix the problem. Hint: Goetz chap 10 introduces the idea of lock-ordering. 
     You can use the ID of the account instead of hashCode() as he propose in listing 10.3.
+    
 
 𝐀𝐍𝐒𝐖𝐄𝐑:
+If there are two threads generating and executing transactions, the problem is that they can both 
+access the same account at the same time, so the program is not reliable.
 
-3.  The number of threads one can create depends on the OS. How many are you 
+After fixing the problem according to listing 10.3, lock ordering makes sure that there are no two threads modifying the same
+account at the same time.
+See ExecutorAccountExperiments.java (transferMoney method)
+
+source id	target id	amount	sourceBalance	target balance
+4	            5	    648	        0	            0
+6	            1	    431	        0	            0
+4	            5	    648	        -648	        648
+0	            3	    273	        0	            0
+6	            1	    431	        -431	        431
+7	            5	    3378        0	            648
+7	            5	    3378        -3378	        4026
+0	            3	    273	        -273	        273
+3	            6	    1650        273	            -431
+8	            2	    187	        0	            0
+3	            6	    1650        -1377	        1219
+8	            2	    187	        -187	        187
+1	            7	    1991        431	            -3378
+5	            6	    1951        4026	        1219
+1	            7	    1991        -1560	        -1387
+5	            6	    1951        2075	        3170
+3	            5	    4836        -1377	        2075
+2	            5	    2262        187	            2075
+3	            5	    4836        -6213	        6911
+2	            5	    2262        -2075	        9173
+1	            3	    2073        -1560	        -6213
+1	            3	    2073        -3633	        -4140
+0	            8	    1944        -273	        -187
+0	            8	    1944        -2217	        1757
+8	            1	    3780        1757	        -3633
+8	            1	    3780        -2023	        147
+8	            0	    1260        -2023	        -2217
+8	            0	    1260        -3283	        -957
+3	            8	    562	        -4140	        -3283
+3	            8	    562	        -4702	        -2721
+
+
+ 3.The number of threads one can create depends on the OS. How many are you 
     able to make on your JVM? How do you find out?
 
 𝐀𝐍𝐒𝐖𝐄𝐑:
+We could reach around 6400 Threads before the computer crashed. 
+See ThreadSupport.java
+
 
 4.  On page 2051 Goetz writes: "Whenever you see code of the form: 
     new Thread(runnable).start() and you think you might at some point want a 
@@ -42,10 +100,13 @@ generated, but ensures that the source and target accounts are not the same.
     Make it use a fixed size thread pool.
 
 𝐀𝐍𝐒𝐖𝐄𝐑:
+See ExecutorAccountExperiments2.java
+
 
 5.  Is there a way to tell when the program finishes? Why/ Why not?
 
 𝐀𝐍𝐒𝐖𝐄𝐑:
+No, because the program never terminates. (But it does finish the tasks)
 
 📒Yellow -------------------------------------------------------------------------------
 
@@ -55,12 +116,120 @@ generated, but ensures that the source and target accounts are not the same.
     successfully shut down.
 
 𝐀𝐍𝐒𝐖𝐄𝐑:
+To ensure that the executor shuts downs we implemented the ExecutorService interface, and called its shutdown method.
+See ExecutorAccountExperiments2.java 
+it took 763700 nanoseconds.
 
 7.  How many threads are needed in the fixed size thread pool to obtain best performance? 
     Try to vary the sleep time from its current value of 50 down to 1, 
     in steps 50,40,30,20,10,1. How does sleep time influence best pool size?
 
 𝐀𝐍𝐒𝐖𝐄𝐑:
+With sleeping time: 50
+number of threads: 2 time: 519401
+number of threads: 4 time: 177399
+number of threads: 6 time: 138300
+number of threads: 8 time: 162299
+number of threads: 10 time: 154099
+number of threads: 12 time: 144300
+number of threads: 14 time: 167400
+number of threads: 16 time: 144501
+number of threads: 18 time: 128800
+number of threads: 20 time: 130100
+number of threads: 22 time: 145600
+number of threads: 24 time: 128900
+number of threads: 26 time: 136700
+number of threads: 28 time: 121800
+number of threads: 30 time: 153900
+
+The optimal number of threads is 4
+
+number of threads: 2 time: 491500 sleep time: 40
+number of threads: 4 time: 156000 sleep time: 40
+number of threads: 6 time: 116800 sleep time: 40
+number of threads: 8 time: 144900 sleep time: 40
+number of threads: 10 time: 105400 sleep time: 40
+number of threads: 12 time: 143900 sleep time: 40
+number of threads: 14 time: 106700 sleep time: 40
+number of threads: 16 time: 138000 sleep time: 40
+number of threads: 18 time: 109000 sleep time: 40
+number of threads: 20 time: 108900 sleep time: 40
+number of threads: 22 time: 132400 sleep time: 40
+number of threads: 24 time: 111300 sleep time: 40
+number of threads: 26 time: 107400 sleep time: 40
+number of threads: 28 time: 130900 sleep time: 40
+number of threads: 30 time: 110500 sleep time: 40
+
+
+number of threads: 2 time: 469400 sleep time: 30
+number of threads: 4 time: 170900 sleep time: 30
+number of threads: 6 time: 98900 sleep time: 30
+number of threads: 8 time: 132700 sleep time: 30
+number of threads: 10 time: 98200 sleep time: 30
+number of threads: 12 time: 93500 sleep time: 30
+number of threads: 14 time: 122400 sleep time: 30
+number of threads: 16 time: 107300 sleep time: 30
+number of threads: 18 time: 93400 sleep time: 30
+number of threads: 20 time: 107900 sleep time: 30
+number of threads: 22 time: 125700 sleep time: 30
+number of threads: 24 time: 87700 sleep time: 30
+number of threads: 26 time: 91500 sleep time: 30
+number of threads: 28 time: 115800 sleep time: 30
+number of threads: 30 time: 98700 sleep time: 30
+
+
+number of threads: 2 time: 527200 sleep time: 20
+number of threads: 4 time: 148800 sleep time: 20
+number of threads: 6 time: 121700 sleep time: 20
+number of threads: 8 time: 142800 sleep time: 20
+number of threads: 10 time: 98200 sleep time: 20
+number of threads: 12 time: 123100 sleep time: 20
+number of threads: 14 time: 104600 sleep time: 20
+number of threads: 16 time: 109500 sleep time: 20
+number of threads: 18 time: 98300 sleep time: 20
+number of threads: 20 time: 117600 sleep time: 20
+number of threads: 22 time: 119000 sleep time: 20
+number of threads: 24 time: 105500 sleep time: 20
+number of threads: 26 time: 92500 sleep time: 20
+number of threads: 28 time: 127500 sleep time: 20
+number of threads: 30 time: 117700 sleep time: 20
+
+
+number of threads: 2 time: 572800 sleep time: 10
+number of threads: 4 time: 174100 sleep time: 10
+number of threads: 6 time: 145200 sleep time: 10
+number of threads: 8 time: 165000 sleep time: 10
+number of threads: 10 time: 121000 sleep time: 10
+number of threads: 12 time: 151600 sleep time: 10
+number of threads: 14 time: 116800 sleep time: 10
+number of threads: 16 time: 133900 sleep time: 10
+number of threads: 18 time: 116400 sleep time: 10
+number of threads: 20 time: 157700 sleep time: 10
+number of threads: 22 time: 120400 sleep time: 10
+number of threads: 24 time: 135800 sleep time: 10
+number of threads: 26 time: 108700 sleep time: 10
+number of threads: 28 time: 141700 sleep time: 10
+number of threads: 30 time: 117200 sleep time: 10
+
+
+number of threads: 2 time: 574200 sleep time: 1
+number of threads: 4 time: 232600 sleep time: 1
+number of threads: 6 time: 159900 sleep time: 1
+number of threads: 8 time: 148100 sleep time: 1
+number of threads: 10 time: 149600 sleep time: 1
+number of threads: 12 time: 132400 sleep time: 1
+number of threads: 14 time: 125900 sleep time: 1
+number of threads: 16 time: 132900 sleep time: 1
+number of threads: 18 time: 162400 sleep time: 1
+number of threads: 20 time: 150000 sleep time: 1
+number of threads: 22 time: 169700 sleep time: 1
+number of threads: 24 time: 134500 sleep time: 1
+number of threads: 26 time: 144800 sleep time: 1
+number of threads: 28 time: 150000 sleep time: 1
+number of threads: 30 time: 124800 sleep time: 1
+
+Changing the sleeping time does not really affect the best pool size.
+
 
 ----------------------------------------------------------------------------------------
 Exercise 5.2 
