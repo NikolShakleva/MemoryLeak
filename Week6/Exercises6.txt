@@ -1,0 +1,173 @@
+GOAL OF THE EXERCISES
+
+The goal of this week’s exercises is to make sure that you can use Java 8 functional 
+programming (including immutable data, functional interfaces, lambda expressions, and 
+method reference expressions), and in particular Java 8 (parallel) streams and parallel 
+array operations through mostly-functional programming.
+
+----------------------------------------------------------------------------------------
+Exercise 6.1 
+----------------------------------------------------------------------------------------
+
+This exercise is not colored. You do not need to do this exercise. However, if you are 
+not used to working with streams and functions, this exercise will get you started. 
+We will not take it up at the feedback session unless you ask about it.
+I will create a solution sheet for this exercise sometime over the weekend.
+
+In this exercise you will extend class FunList<T> of immutable singly-linked lists 
+from Java Precisely Exam- ple 154 (source code in file Example154.java). In the solutions, 
+feel free to use recursion instead of explicit loops when convenient; do not worry 
+about stack overflow. In the descriptions below, the given list is assumed to have 
+elements x1, x2, . . . , xn.
+
+1.  Add a method FunList<T> remove(T x) that creates a new list in which all occurrences 
+    of x have been removed.
+    
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+2.  Add a method int count(Predicate<T> p) that returns the number of elements that satisfy 
+    predicate p. Remember to import the Predicate type.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+3.  Add a method FunList<T> filter(Predicate<T> p) that creates a new list that contains 
+    exactly those elements that satisfy predicate p.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+4.  Show how to implement an alternative version of remove, called removeFun, by a call 
+    to filter and using a lambda expression, and no explicit recursion or iteration.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+5.  Add a static method FunList<T> flatten(FunList<FunList<T>> xss) that creates a 
+    single list containing all the elements of the individual lists in xss, in order 
+    of appearance.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+6.  Show how to implement an alternative version of flatten, called flattenFun, using 
+    reduce, a lambda expression, and append, and no explicit recursion or iteration.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+7.  Add a method <U> FunList<U> flatMap(Function<T,FunList<U>> f) that computes the lists 
+
+        f.apply(x1), f.apply(x2), . . . , f.apply(xn) 
+
+    and then returns the concatenation or flatten- ing of these lists. Write both an 
+    explicit implementation, using recursion or iteration, and an implementation called 
+    flatMapFun using map and flatten, and no explicit recursion or iteration.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+8.  Add a method FunList<T> scan(BinaryOperator<T> f) that returns a list 
+        y1 , y2 , . . . , yn 
+    of the same length as the given list 
+        x1, x2, . . . , xn. 
+    Here y1 equals x1, and for i > 1 it should hold that yi equals f.apply(yi−1, xi).
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+----------------------------------------------------------------------------------------
+Exercise 6.2 
+----------------------------------------------------------------------------------------
+
+This exercise is about processing a large body of English words, using streams of 
+strings. There is a list of some 235,000 English words and names in 
+    
+    file /usr/share/dict/words 
+    
+on most Unix systems, including MacOS. They are also in the file english-words.txt, 
+in the code directory.
+
+The exercises below should be solved without any explicit loops (or recursion) as 
+far as possible (that is, use streams).
+
+
+📗 Green -------------------------------------------------------------------------------
+
+1.  Starting from the TestWordStream.java file, complete the readWords method and check 
+    that you can read the file as a stream and count the number of English words in it. 
+    For the english-words.txt file on the course homepage the result should be 235,886.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+2.  Write a stream pipeline to print the first 100 words from the file.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+3.  Write a stream pipeline to find and print all words that have at least 22 letters.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+4.  Write a stream pipeline to find and print some word that has at least 22 letters.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+5.  Write a method boolean isPalindrome(String s) that tests whether a word s is a 
+    palindrome: a word that is the same spelled forward and backward. Write a 
+    stream pipeline to find all palindromes and print them.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+6.  Make a parallel version of the palindrome-printing stream pipeline. Is it possible 
+    to observe whether it is faster or slower than the sequential one?
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+7.  Use a stream pipeline that turns the stream of words into a stream of their lengths, 
+    to find and print the minimal, maximal and average word lengths.
+    Hint: There is a special terminal operator on IntStream which should be useful.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+📒Yellow -------------------------------------------------------------------------------
+
+8.  Write a stream pipeline, using method collect and a groupingBy collector from 
+    class Collectors, to group the words by length. That is, put all 1-letter words 
+    in one group, all 2-letter words in another group, and so on, and print the groups. 
+    Optional challenge, (Hint: remember to look in Java Precisely): Use another overload 
+    of groupingBy to compute (and then print) the number of 1-letter words, the number 
+    of 2-letter words, and so on.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+9.  Write a method Map<Character,Integer> letters(String s) that returns a tree map 
+    (a map based on a balanced search tree over the letters, java.util.TreeMap) 
+    indicating how many times each letter is used in the word s. Convert all letters 
+    to lower case. For instance, if s is the word “Persistent” then the tree map will be 
+
+        {e=2, i=1, n=1, p=1, r=1, s=2, t=2}.
+
+    Now write a stream pipeline that transforms all the English words into the corresponding 
+    tree map of letter counts, and print this for the first 100 words.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+    
+10. Use the tree map stream to write a stream pipeline to count the total number of times 
+    the letter e is used in the English words. For the words file on the course homepage 
+    the result should be 235,331.
+
+𝐀𝐍𝐒𝐖𝐄𝐑:
+
+
+
+
