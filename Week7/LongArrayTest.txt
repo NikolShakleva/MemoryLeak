@@ -1,0 +1,34 @@
+Testing for LongArray with Read Write Lock
+
+N: 500000
+Running Time Add: 0.141913337 s
+Running Time Get: 0.151233589 s
+
+N: 1000000
+Running Time Add: 0.247712865 s
+Running Time Get: 0.238984032 s
+
+N: 5000000
+Running Time Add: 0.863332072 s
+Running Time Get: 0.777790364 s
+
+N: 10000000
+Running Time Add: 1.864229175 s
+Running Time Get: 1.70280849 s
+
+N: 50000000
+Running Time Add: 9.319663633 s
+Running Time Get: 8.52617144 s
+
+N: 100000000
+Running Time Add: 17.984957561 s
+Running Time Get: 16.596089821 s
+
+Exception in thread "Thread-18" java.lang.OutOfMemoryError: Java heap space
+	at LongArrayListRW.lambda$add$2(LongArrayReadWrite.java:142)
+	at LongArrayListRW$$Lambda$2/0x0000000800067c40.run(Unknown Source)
+	at LongArrayListRW.lockIt(LongArrayReadWrite.java:164)
+	at LongArrayListRW.add(LongArrayReadWrite.java:140)
+	at LongArrayReadWrite.lambda$main$0(LongArrayReadWrite.java:30)
+	at LongArrayReadWrite$$Lambda$4/0x0000000800065440.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:834)

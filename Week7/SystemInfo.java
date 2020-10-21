@@ -4,7 +4,7 @@
 public class SystemInfo {
     
   public static void main(String argv[]) {
-      SystemInfo();
+      systemInfo();
   }
 
   public static void systemInfo() {

@@ -133,20 +133,26 @@ they do not lock the entire hash map, only the relevant stripe.
 
     Explain what version you have implemented and why.
 
-𝐀𝐍𝐒𝐖𝐄𝐑:
+𝐀𝐍𝐒𝐖𝐄𝐑:    We used iterator over the stripes 
+            This method only locks each lock once and therfore saves time regarding locking
+            This way we make sure that no reallocation happens while we loop through the stripes and buckets.
+
 
 
 7.  What advantages are there to using a small number (say 32 or 16) of stripes instead 
     of simply having a stripe for each entry in the buckets table? Discuss.
 
-𝐀𝐍𝐒𝐖𝐄𝐑:
+𝐀𝐍𝐒𝐖𝐄𝐑:     It is better to use a smaller amount of locks in regards of memory utilization, more locks require more memory     
+            It would also be very costly to lock all of the locks if we needed to change the data structure (ex reallocateBuckets)
 
 
 
 8.  Why can using 32 stripes improve performance even if one never runs more than, say, 
     16 threads? Discuss.
 
-𝐀𝐍𝐒𝐖𝐄𝐑:
+𝐀𝐍𝐒𝐖𝐄𝐑:    It is good if you have more stripes if your data structure is large. The threads access the entry independently so if you have a 
+            lower amount of stripes the chance of several threads trying to access the same lock is bigger, so by using 32 stripes we
+            minimize the probability of threads calling the same lock.
 
 
 📕Red ----------------------------------------------------------------------------------
