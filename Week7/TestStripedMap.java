@@ -155,8 +155,8 @@ public class TestStripedMap {
   private static void testAllMaps() {
     testMap(new SynchronizedMap<Integer,String>(25));
     testMap(new StripedMap<Integer,String>(25, 5));
-    testMap(new StripedWriteMap<Integer,String>(25, 5));
-    testMap(new WrapConcurrentHashMap<Integer,String>());
+    //testMap(new StripedWriteMap<Integer,String>(25, 5));
+    //testMap(new WrapConcurrentHashMap<Integer,String>());
   }
 
   // --- Benchmarking infrastructure ---
@@ -436,8 +436,8 @@ class StripedMap<K,V> implements OurMap<K,V> {
          return node.v;
       else
         return null;
+    }
   }
-}
 
   public int size() {
     int sum = 0;
