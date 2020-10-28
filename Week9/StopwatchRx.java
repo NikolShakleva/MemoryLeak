@@ -26,7 +26,8 @@ public class StopwatchRx {
             public void run() {
               try {
                 while ( true ) {
-                  TimeUnit.SECONDS.sleep(1);
+                  // TimeUnit.SECONDS.sleep(1);
+                  TimeUnit.MILLISECONDS.sleep(100);
                   e.onNext(1);
                 }
               } catch (java.lang.InterruptedException e) {
@@ -60,7 +61,7 @@ public class StopwatchRx {
  
     //TO DO
     //Insert code using timer and display to make a working version of the Stopwatch
-
+    timer.subscribe(display);
     f.setLayout(null);  
 		f.setVisible(true);   
 	}

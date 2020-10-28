@@ -27,6 +27,27 @@ class stopwatchUI {
       }
 		};
 
+		public String getTime () {
+			String time = tf.getText();
+			return time;
+		}
+	
+		public void updateDisplay(String time) {
+			tf.setText(time);
+		}
+
+		public SecCounter getlC() {
+			return lC;
+		}
+
+		public int getLx() {
+			return lx;
+		}
+
+		public void setlC(SecCounter lC) {
+			this.lC = lC;
+		}
+
     public boolean running() { return lC.running();  }
 		
 		public stopwatchUI(int x, JFrame jF){
