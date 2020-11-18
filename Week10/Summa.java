@@ -9,6 +9,7 @@ class Summa {
 final List<Integer> a = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
 // This is a local variable and it is not recognisable in the labda expression
 // Integer sum;
+// in java the lambda is an anonimous class which has only one method(x-> sum+=x)
 a.forEach( x -> sum += x );
 System.out.println("Sum: " + sum);
 }
